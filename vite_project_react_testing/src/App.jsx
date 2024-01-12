@@ -1,12 +1,11 @@
-import ChatComponent from "./Components/ChatComponent";
+import { BrowserRouter as Router } from "react-router-dom";
+import RoutesConfigure from "./Routes/RoutesConfigure";
 
 function App() {
-  if ("hello") {
-  }
   return (
-    <div>
-      <ChatComponent />
-    </div>
+    <Router>
+      <RoutesConfigure />
+    </Router>
   );
 }
 
