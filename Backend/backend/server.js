@@ -1,9 +1,9 @@
 const express = require("express");
-const chats = require("./data/data");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const dbConnection = require("./config/db");
 const userRoute = require("./routes/userRoutes");
+const chatRoute = require("./routes/chatRoute");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dbConnection();
@@ -16,17 +16,19 @@ app.get("/", (req, res) => {
   res.send("API IS RUNNING SUCESSFULLY");
 });
 
-app.get("/api/chat", (req, res) => {
-  res.send(chats);
-});
+// app.get("/api/chat", (req, res) => {
+//   res.send(chats);
+// });
 
-app.get("/api/chat/:id", (req, res) => {
-  const singleRequest = chats.find((chat) => chat._id === req.params.id);
-  console.log(singleRequest, "singleRequest");
-  res.send(singleRequest);
-});
+// app.get("/api/chat/:id", (req, res) => {
+//   const singleRequest = chats.find((chat) => chat._id === req.params.id);
+//   console.log(singleRequest, "singleRequest");
+//   res.send(singleRequest);
+// });
 
 app.use("/api/user", userRoute);
+app.use("/api/chat", chatRoute);
+
 app.use(errorHandler);
 app.use(notFound);
 

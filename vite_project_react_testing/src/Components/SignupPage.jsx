@@ -5,23 +5,42 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Form, Input, Spin, message } from "antd";
-import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
-  const { form } = useForm();
+  const [form] = Form.useForm();
   const [isLoading, setIsloading] = useState(false);
+  const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const onFinish = (values) => {
+    // const data = new FormData();
+    // data.append("name", values.name);
+    // data.append("password", values.password);
+    // data.append("email", values.email);
+    // data.append("file", imageUrl);
     const payload = { ...values };
+
     axios
-      .post("http://localhost:5134/api/user", payload)
+      .post(
+        "http://localhost:5134/api/user",
+        payload
+        //  {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // }
+      )
+      .then((res) => res.json())
       .then((res) => {
+        console.log({ res });
         form.resetFields();
-        message.success("Login Successfully");
+        message.success("Signup Successfully");
         setIsloading(false);
+        navigate("/chat");
       })
+
       .catch((err) => {
         console.log({ err });
         setIsloading(false);
@@ -29,35 +48,10 @@ const SignupPage = () => {
       });
   };
   const handleFileUploadAtCloudinary = (event) => {
-    console.log("event", event.target?.files[0]);
     const file = event.target?.files[0];
-    if (file === undefined) {
-      message.warning("Please select image");
-      return;
-    } else {
-      setIsloading(true);
-      const data = new FormData();
-      data.append("file", file);
-      data.append("upload_preset", "v-chat-application");
-      data.append("cloud_name", "do0almimf");
-      fetch("https://api.cloudinary.com/v1_1/do0almimf", {
-        method: "POST",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setImageUrl(data.url.toString());
-          message.success("Upload successfully");
-          setIsloading(false);
-        })
-        .catch((err) => {
-          console.log({ err });
-          setIsloading(false);
-          message.error("Something went wrong");
-        });
-    }
+    setImageUrl(file);
   };
-
+  console.log({ imageUrl });
   return (
     <>
       {isLoading && <Spin />}

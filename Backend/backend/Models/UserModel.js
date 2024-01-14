@@ -21,7 +21,7 @@ userModel.methods.matchPassword = async function (enteredPassword) {
 };
 
 userModel.pre("save", async function (next) {
-  if (!this.isModified) {
+  if (!this.isModified()) {
     next();
   }
   const salt = await bcrypt.genSalt(10);

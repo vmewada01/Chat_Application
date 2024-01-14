@@ -1,11 +1,12 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Spin, message } from "antd";
-import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const { form } = useForm();
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
   const [isLoading, setIsloading] = useState(false);
   const onFinish = (values) => {
     const payload = { ...values };
@@ -15,6 +16,7 @@ const LoginPage = () => {
         form.resetFields();
         message.success("Login Successfully");
         setIsloading(false);
+        navigate("/chat");
       })
       .catch((err) => {
         console.log({ err });
@@ -35,7 +37,7 @@ const LoginPage = () => {
           onFinish={onFinish}
         >
           <Form.Item
-            name="name"
+            name="email"
             rules={[
               {
                 required: true,
@@ -45,7 +47,7 @@ const LoginPage = () => {
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
+              placeholder="Email Address"
             />
           </Form.Item>
           <Form.Item
