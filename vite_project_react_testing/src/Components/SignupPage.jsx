@@ -12,6 +12,7 @@ import React, { useState } from "react";
 const SignupPage = () => {
   const { form } = useForm();
   const [isLoading, setIsloading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
   const onFinish = (values) => {
     const payload = { ...values };
     axios
@@ -27,6 +28,36 @@ const SignupPage = () => {
         message.error("Something went wrong");
       });
   };
+  const handleFileUploadAtCloudinary = (event) => {
+    console.log("event", event.target?.files[0]);
+    const file = event.target?.files[0];
+    if (file === undefined) {
+      message.warning("Please select image");
+      return;
+    } else {
+      setIsloading(true);
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "v-chat-application");
+      data.append("cloud_name", "do0almimf");
+      fetch("https://api.cloudinary.com/v1_1/do0almimf", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setImageUrl(data.url.toString());
+          message.success("Upload successfully");
+          setIsloading(false);
+        })
+        .catch((err) => {
+          console.log({ err });
+          setIsloading(false);
+          message.error("Something went wrong");
+        });
+    }
+  };
+
   return (
     <>
       {isLoading && <Spin />}
@@ -86,6 +117,8 @@ const SignupPage = () => {
             <Input
               prefix={<ArrowUpOutlined className="site-form-item-icon" />}
               type="file"
+              accept=".jpeg,.jpg,.png"
+              onChange={handleFileUploadAtCloudinary}
             />
           </Form.Item>
 
