@@ -1,12 +1,20 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Card, Space, Tabs } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
 
 const HomePage = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (userInfo) {
+      navigate("/chat");
+    }
+  }, [window.location]);
   return (
     <div className="sticky-background">
       <div>

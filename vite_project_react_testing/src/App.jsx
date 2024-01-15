@@ -1,14 +1,15 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
+import { ChatProvider } from "./Providers/ChatProvider";
 import RoutesConfigure from "./Routes/RoutesConfigure";
 
 function App() {
   return (
-    <Router>
-      <div className="app-styling">
+    <BrowserRouter>
+      <ChatProvider>
         <RoutesConfigure />
-      </div>
-    </Router>
+      </ChatProvider>
+    </BrowserRouter>
   );
 }
 

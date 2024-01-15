@@ -1,5 +1,7 @@
 import {
   ArrowUpOutlined,
+  EyeInvisibleOutlined,
+  EyeTwoTone,
   LockOutlined,
   MailOutlined,
   UserOutlined,
@@ -101,8 +103,11 @@ const SignupPage = () => {
               },
             ]}
           >
-            <Input
+            <Input.Password
               prefix={<LockOutlined className="site-form-item-icon" />}
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
               type="password"
               placeholder="Password"
             />

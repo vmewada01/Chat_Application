@@ -1,4 +1,9 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  LockOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Button, Form, Input, Spin, message } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
@@ -13,6 +18,14 @@ const LoginPage = () => {
     axios
       .post("http://localhost:5134/api/user/login", payload)
       .then((res) => {
+        const userInformation = {
+          name: res.data.name,
+          email: res.data.email,
+          picture: res.data.picture,
+          userId: res.data._id,
+        };
+
+        localStorage.setItem("userInfo", JSON.stringify(userInformation));
         form.resetFields();
         message.success("Login Successfully");
         setIsloading(false);
@@ -59,8 +72,11 @@ const LoginPage = () => {
               },
             ]}
           >
-            <Input
+            <Input.Password
               prefix={<LockOutlined className="site-form-item-icon" />}
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
               type="password"
               placeholder="Password"
             />
