@@ -5,12 +5,13 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Form, Input, Spin, message } from "antd";
+import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [form] = Form.useForm();
+  const [form] = useForm();
   const navigate = useNavigate();
   const [isLoading, setIsloading] = useState(false);
   const onFinish = (values) => {
@@ -43,6 +44,7 @@ const LoginPage = () => {
       {isLoading && <Spin />}
       <div className="p-4">
         <Form
+          form={form}
           name="normal_login"
           className="login-form"
           initialValues={{

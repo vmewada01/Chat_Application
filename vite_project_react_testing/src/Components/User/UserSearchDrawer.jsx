@@ -55,6 +55,9 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
         },
         config
       );
+      if (!chats.find((chat) => chat._id === data._id)) {
+        setChats([data, ...chats]);
+      }
       setSelectedChat(data);
       setIsloadingChat(false);
       onClose();
@@ -101,6 +104,9 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
             />
           );
         })}
+      {isLoadingChat && (
+        <Spin className="flex justify-center items-center p-3" />
+      )}
     </Drawer>
   );
 };

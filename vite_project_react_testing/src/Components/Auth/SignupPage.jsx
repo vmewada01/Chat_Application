@@ -7,12 +7,13 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Form, Input, Spin, message } from "antd";
+import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
-  const [form] = Form.useForm();
+  const [form] = useForm();
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
@@ -34,9 +35,17 @@ const SignupPage = () => {
         //   },
         // }
       )
-      .then((res) => res.json())
+
       .then((res) => {
-        console.log({ res });
+        const userInformation = {
+          name: res.data.name,
+          email: res.data.email,
+          picture: res.data.picture,
+          userId: res.data._id,
+          token: res.data.token,
+        };
+
+        localStorage.setItem("userInfo", JSON.stringify(userInformation));
         form.resetFields();
         message.success("Signup Successfully");
         setIsloading(false);
@@ -53,12 +62,13 @@ const SignupPage = () => {
     const file = event.target?.files[0];
     setImageUrl(file);
   };
-  console.log({ imageUrl });
+
   return (
     <>
       {isLoading && <Spin />}
       <div className="p-4">
         <Form
+          form={form}
           name="normal_login"
           className="login-form"
           initialValues={{

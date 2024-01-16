@@ -16,7 +16,6 @@ const HeaderComponent = () => {
   const [IsUserSearchDrawer, setIsUserSearchDrawer] = useState(false);
 
   const { user } = useContext(ChatContext);
-  console.log(user, "user");
 
   const items = [
     {
