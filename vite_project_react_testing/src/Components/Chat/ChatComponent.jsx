@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import { ChatContextState } from "../Providers/ChatProvider";
+import React, { useContext, useState } from "react";
+import { ChatContext } from "../../Providers/ChatProvider";
 import HeaderComponent from "./HeaderComponent";
 import MainComponent from "./MainComponent";
 import SiderComponent from "./SiderComponent";
 
 const ChatComponent = () => {
-  const [data, setData] = useState([]);
-  const { user } = ChatContextState();
+  const [chats, setChats] = useState([]);
+
+  const { user } = useContext(ChatContext);
+  // const fetchChats = async()=> {
+  //   const {data} = await axios.get("http://localhost:5134/api/chat")
+  // }
+  console.log(user, "user");
+
   return (
     user && (
       <div>

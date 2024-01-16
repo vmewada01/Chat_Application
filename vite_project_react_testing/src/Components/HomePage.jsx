@@ -2,8 +2,8 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Card, Space, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginPage from "./LoginPage";
-import SignupPage from "./SignupPage";
+import LoginPage from "./Auth/LoginPage";
+import SignupPage from "./Auth/SignupPage";
 
 const HomePage = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -20,7 +20,7 @@ const HomePage = () => {
       <div>
         <Card bordered={false} className="w-1/2 m-auto mt-2 ">
           <p className="flex justify-center text-purple-500 font-bold text-2xl ">
-            ★★★ V-CHAT-APPLICATION ★★★
+            {/* ★★★ V-CHAT-APPLICATION ★★★ */}
           </p>
         </Card>
       </div>

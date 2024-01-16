@@ -23,6 +23,7 @@ const LoginPage = () => {
           email: res.data.email,
           picture: res.data.picture,
           userId: res.data._id,
+          token: res.data.token,
         };
 
         localStorage.setItem("userInfo", JSON.stringify(userInformation));
