@@ -6,7 +6,7 @@ import { ChatContext } from "../../Providers/ChatProvider";
 import { getSender } from "../../config/ChatLogics";
 import GroupChatModal from "../GroupChat/GroupChatModal";
 
-const SiderComponent = () => {
+const SiderComponent = ({ fetchAgain }) => {
   const [isGroupChatModal, setIsGroupChatModal] = useState(false);
   const [loggedUser, setLoggedUser] = useState([]);
   const { user, setSelectedChat, chats, setChats } = useContext(ChatContext);
@@ -33,7 +33,7 @@ const SiderComponent = () => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-  }, []);
+  }, [fetchAgain]);
 
   return (
     <div>

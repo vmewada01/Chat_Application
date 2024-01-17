@@ -1,22 +1,27 @@
-import { Button, Form, Input, Modal, Select, message } from "antd";
+import { Button, Form, Input, Modal, Spin, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
+import UserBadgeItem from "../User/UserBadgeItem";
+import UserListItem from "../User/UserListItem";
 
 const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
   const { user, chats, setChats } = useContext(ChatContext);
-  const [groupChatName, setGroupChatName] = useState(null);
   const [selectedUser, setSelectedUser] = useState([]);
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  const [isLoading, searchIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = useForm();
 
-  const onFinish = (values) => {};
+  const handleChange = async (query) => {
+    setSearch(query);
+    if (!query) {
+      return;
+    }
 
-  const handleChange = async () => {
     try {
+      setIsLoading(true);
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -24,20 +29,56 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:5134/api/user`,
+        `http://localhost:5134/api/user?search=${query}`,
         config
       );
-
+      setIsLoading(false);
       setSearchResult(data);
       console.log({ data });
     } catch (error) {
+      console.log({ error });
+      setIsLoading(false);
       message.error("Failed to retrieve search results", error);
     }
   };
 
-  useEffect(() => {
-    handleChange();
-  }, []);
+  const handleGroup = async (userToAdd) => {
+    const userExit = await selectedUser.includes(userToAdd);
+    if (userExit) {
+      message.info("User already added");
+      return;
+    }
+    setSelectedUser([...selectedUser, userToAdd]);
+  };
+
+  const handleDelete = (deleteUser) => {
+    setSelectedUser(selectedUser.filter((user) => user._id !== deleteUser._id));
+  };
+  const onFinish = async (values) => {
+    if (!selectedUser) return message.warning("Please enter the chat name");
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const payload = {
+        name: values.chatName,
+        users: JSON.stringify(selectedUser.map((user) => user._id)),
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:5134/api/chat/group`,
+        payload,
+        config
+      );
+
+      setChats([data, ...chats]);
+      onClose();
+      message.success("Group chat created");
+    } catch (error) {}
+  };
   return (
     <Modal
       title={
@@ -67,25 +108,36 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
           >
             <Input placeholder="Chat Name" />
           </Form.Item>
-          <Form.Item
-            name="usersName"
-            rules={[
-              {
-                required: true,
-                message: "users name is required",
-              },
-            ]}
-          >
-            <Select
-              mode="multiple"
-              allowClear={true}
-              placeholder="select users"
-              options={searchResult.map((item) => ({
-                label: item.name,
-                value: item.name,
-              }))}
+          <Form.Item name="usersName">
+            <Input
+              placeholder="Add User eg: Jatin, Safal, etc..."
+              onChange={(e) => handleChange(e.target.value)}
             />
           </Form.Item>
+
+          {selectedUser.map((user) => (
+            <UserBadgeItem
+              key={user.id}
+              user={user}
+              handleFunction={() => handleDelete(user)}
+            />
+          ))}
+
+          {/* selected users 
+         render searched users */}
+          {isLoading ? (
+            <Spin />
+          ) : (
+            searchResult?.slice(0, 4).map((user) => (
+              <div className="flex flex-wrap">
+                <UserListItem
+                  key={user._id}
+                  singleUser={user}
+                  handleUserAccess={() => handleGroup(user)}
+                />
+              </div>
+            ))
+          )}
 
           <Form.Item>
             <Button

@@ -16,16 +16,6 @@ app.get("/", (req, res) => {
   res.send("API IS RUNNING SUCESSFULLY");
 });
 
-// app.get("/api/chat", (req, res) => {
-//   res.send(chats);
-// });
-
-// app.get("/api/chat/:id", (req, res) => {
-//   const singleRequest = chats.find((chat) => chat._id === req.params.id);
-//   console.log(singleRequest, "singleRequest");
-//   res.send(singleRequest);
-// });
-
 app.use("/api/user", userRoute);
 app.use("/api/chat", chatRoute);
 

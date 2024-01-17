@@ -1,9 +1,7 @@
 import { Image, Modal } from "antd";
-import React, { useContext } from "react";
-import { ChatContext } from "../../Providers/ChatProvider";
+import React from "react";
 
-const ProfileModal = ({ isModalOpen, onClose, handleOk }) => {
-  const { user } = useContext(ChatContext);
+const ProfileModal = ({ isModalOpen, onClose, handleOk, user }) => {
   return (
     <Modal
       title={
