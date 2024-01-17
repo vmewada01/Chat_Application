@@ -4,6 +4,7 @@ const cors = require("cors");
 const dbConnection = require("./config/db");
 const userRoute = require("./routes/userRoutes");
 const chatRoute = require("./routes/chatRoute");
+const messageRoute = require("./routes/messageRoute");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dbConnection();
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", userRoute);
 app.use("/api/chat", chatRoute);
+app.use("/api/messages", messageRoute);
 
 app.use(errorHandler);
 app.use(notFound);
