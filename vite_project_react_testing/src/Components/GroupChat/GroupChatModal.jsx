@@ -34,7 +34,6 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
       );
       setIsLoading(false);
       setSearchResult(data);
-      console.log({ data });
     } catch (error) {
       console.log({ error });
       setIsLoading(false);

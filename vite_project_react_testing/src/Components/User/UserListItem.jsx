@@ -2,7 +2,6 @@ import { Image } from "antd";
 import React from "react";
 
 const UserListItem = ({ singleUser, handleUserAccess }) => {
-  console.log({ singleUser });
   return (
     <>
       <div

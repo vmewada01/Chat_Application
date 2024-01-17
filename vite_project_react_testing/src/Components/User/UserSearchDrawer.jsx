@@ -33,7 +33,6 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
       setIsloading(false);
       setSearchResult(data);
     } catch (error) {
-      console.log({ error: error });
       setIsloading(false);
       message.error("Failed to retrieve search results", error);
     }
@@ -62,7 +61,6 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
       setIsloadingChat(false);
       onClose();
     } catch (error) {
-      console.log({ error: error });
       setIsloadingChat(false);
       message.error("Failed to retrieve search results", error);
     }

@@ -6,7 +6,7 @@ import { ChatContext } from "../../Providers/ChatProvider";
 import UserBadgeItem from "../User/UserBadgeItem";
 import UserListItem from "../User/UserListItem";
 
-const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
+const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, selectedChat, setSelectedChat } = useContext(ChatContext);
   const [selectedUser, setSelectedUser] = useState([]);
@@ -102,7 +102,6 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
       );
       setIsLoading(false);
       setSearchResult(data);
-      console.log({ data });
     } catch (error) {
       console.log({ error });
       setIsLoading(false);
@@ -137,9 +136,10 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
         payload,
         config
       );
-      console.log({ data });
+
       setSelectedUser(data);
       setFetchAgain(!fetchAgain);
+      fetchMessages();
       setIsLoading(false);
     } catch (error) {
       message.error(error.message);
