@@ -56,7 +56,7 @@ const LoginPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your Username!",
+                message: "Please enter your Username!",
               },
             ]}
           >
@@ -70,7 +70,7 @@ const LoginPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your Password!",
+                message: "Please enter your Password!",
               },
             ]}
           >
@@ -86,7 +86,7 @@ const LoginPage = () => {
 
           <Form.Item>
             <Button
-              style={{ background: "blue" }}
+              className="bg-blue-400 text-white"
               type="primary"
               block
               htmlType="submit"

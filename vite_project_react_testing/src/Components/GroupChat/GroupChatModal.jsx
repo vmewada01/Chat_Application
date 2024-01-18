@@ -86,7 +86,11 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
       }
       open={isModalOpen}
       onOk={handleOk}
-      onCancel={onClose}
+      onCancel={() => {
+        onClose();
+        form.resetFields();
+        form.setFieldsValue({});
+      }}
       footer={false}
     >
       <div>
@@ -122,8 +126,6 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
             />
           ))}
 
-          {/* selected users 
-         render searched users */}
           {isLoading ? (
             <Spin />
           ) : (
@@ -140,7 +142,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
 
           <Form.Item>
             <Button
-              style={{ background: "blue", float: "right" }}
+              className="bg-blue-400 text-white float-right"
               type="primary"
               htmlType="submit"
             >

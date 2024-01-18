@@ -1,4 +1,4 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { UserAddOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { Card, Space, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const HomePage = () => {
             <Tabs.TabPane
               tab={
                 <Space>
-                  <LockOutlined />
+                  <UserSwitchOutlined />
                   LOGIN
                 </Space>
               }
@@ -48,7 +48,7 @@ const HomePage = () => {
             <Tabs.TabPane
               tab={
                 <Space>
-                  <UserOutlined />
+                  <UserAddOutlined />
                   SIGNUP
                 </Space>
               }

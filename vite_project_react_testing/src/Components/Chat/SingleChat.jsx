@@ -1,11 +1,12 @@
-import { Input, message, Spin } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
+import { Button, Input, Spin, message } from "antd";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import io from "socket.io-client";
 import ChattingAnimationData from "../../Animation/ChattingAnimation.json";
-import { getSender, getSenderFull } from "../../config/ChatLogics";
 import { ChatContext } from "../../Providers/ChatProvider";
+import { getSender, getSenderFull } from "../../config/ChatLogics";
 import UpdateGroupChatModal from "../GroupChat/UpdateGroupChatModal";
 import ProfileModal from "../Profile/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
@@ -146,8 +147,23 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           <div className="flex flex-col items-center content-center w-full h-full">
             {!selectedChat?.isGroupChat ? (
               <>
-                {getSender(user, selectedChat?.users)}
-                <ProfileModal user={getSenderFull(user, selectedChat?.users)} />
+                <div className="flex justify-between w-full">
+                  <span className="font-semibold text-lg">
+                    {getSender(user, selectedChat?.users)}
+                  </span>
+
+                  <Button
+                    icon={<EyeOutlined />}
+                    onClick={() => setIsModalOpen(true)}
+                  ></Button>
+                </div>
+
+                <ProfileModal
+                  isModalOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  handleOk={() => setIsModalOpen(false)}
+                  user={getSenderFull(user, selectedChat?.users)}
+                />
                 <div className="flex flex-col justify-end p-3  rounded-lg overflow-hidden w-full h-full">
                   {isLoading ? (
                     <Spin />
@@ -170,6 +186,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       )}
 
                       <Input
+                        className="p-2 text-bold"
                         placeholder="Enter a message..."
                         required={true}
                         onKeyDown={sendMessageFunction}
@@ -182,7 +199,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </>
             ) : (
               <div className="flex justify-between w-full">
-                {selectedChat?.chatName?.toUpperCase()}
+                <span className="font-semibold text-lg">
+                  {selectedChat?.chatName?.toUpperCase()}
+                </span>
+
                 <UpdateGroupChatModal
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}

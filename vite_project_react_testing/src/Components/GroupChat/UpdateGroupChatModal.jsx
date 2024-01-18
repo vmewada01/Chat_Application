@@ -195,8 +195,6 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
           />
         ))}
 
-        {/* selected users 
-         render searched users */}
         {isLoading ? (
           <Spin />
         ) : (

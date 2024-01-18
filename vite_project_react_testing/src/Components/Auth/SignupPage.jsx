@@ -67,7 +67,7 @@ const SignupPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your Username!",
+                message: "Please enter your Username!",
               },
             ]}
           >
@@ -81,7 +81,7 @@ const SignupPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your EmailAddress!",
+                message: "Please enter your EmailAddress!",
               },
             ]}
           >
@@ -95,7 +95,7 @@ const SignupPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please input your Password!",
+                message: "Please enter your Password!",
               },
             ]}
           >
@@ -119,7 +119,7 @@ const SignupPage = () => {
 
           <Form.Item>
             <Button
-              style={{ background: "blue" }}
+              className="bg-blue-400 text-white"
               type="primary"
               block
               htmlType="submit"

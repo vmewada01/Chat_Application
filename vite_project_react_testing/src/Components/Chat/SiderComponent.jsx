@@ -54,7 +54,7 @@ const SiderComponent = ({ fetchAgain }) => {
               return (
                 <div
                   onClick={() => setSelectedChat(chat)}
-                  className="cursor-pointer rounded-lg bg-green-200 mt-2 mb-2"
+                  className="cursor-pointer rounded-lg bg-green-200 mt-1 mb-1"
                   key={index}
                 >
                   <p className="p-3">

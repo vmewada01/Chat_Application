@@ -115,6 +115,7 @@ const HeaderComponent = () => {
         isModalOpen={IsUserProfileModal}
         onClose={() => setIsUserProfileModal(false)}
         handleOk={() => setIsUserProfileModal(false)}
+        user={user}
       />
       <UserSearchDrawer
         onOpen={IsUserSearchDrawer}

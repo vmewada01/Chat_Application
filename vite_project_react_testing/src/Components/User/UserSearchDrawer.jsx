@@ -66,6 +66,11 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
     }
   };
 
+  const handleKeyDownFunction = (event) => {
+    if (event.key === "Enter") {
+      handleSearchFunction();
+    }
+  };
   return (
     <Drawer
       title={
@@ -75,7 +80,11 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
       }
       placement={"left"}
       width={300}
-      onClose={onClose}
+      onClose={() => {
+        onClose();
+        setSearchResult([]);
+        setSearch("");
+      }}
       open={onOpen}
       footer={false}
     >
@@ -84,6 +93,7 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placement="search here....."
+          onKeyDown={handleKeyDownFunction}
         />
         <Button onClick={handleSearchFunction}>Go</Button>
       </div>
