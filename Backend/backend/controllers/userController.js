@@ -16,7 +16,7 @@ cloudinary.config({
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, picture } = req.body;
-  console.log("request", req.body);
+
   if (!name || !email || !password) {
     res.status(400);
     throw new Error("Please Enter all the values");
@@ -82,7 +82,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password, "email password combination");
 
   if (!email || !password) {
     res.status(400);
@@ -113,7 +112,7 @@ const allUser = asyncHandler(async (req, res) => {
       }
     : {};
   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-  console.log(keyword);
+
   res.send(users);
 });
 

@@ -25,7 +25,6 @@ const SiderComponent = ({ fetchAgain }) => {
 
       setChats(data);
     } catch (error) {
-      console.log({ error: error });
       message.error("Failed to retrieve search results", error);
     }
   };

@@ -7,7 +7,7 @@ const MainComponent = ({ fetchAgain, setFetchAgain }) => {
   return (
     <div
       style={{ height: "100vh", width: "100vh" }}
-      className="flex items-center rounded-lg border-black p-3 flex-col w-full bg-red-600"
+      className="flex items-center rounded-lg border-black p-3 flex-col w-full bg-white"
     >
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
     </div>

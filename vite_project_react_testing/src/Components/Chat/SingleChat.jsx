@@ -14,7 +14,8 @@ const ENDPOINT = "http://localhost:5134";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  const { user, selectedChat, setSelectedChat } = useContext(ChatContext);
+  const { user, selectedChat, setSelectedChat, notification, setNotification } =
+    useContext(ChatContext);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isSocketConnected, setIsSocketConnected] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -65,7 +66,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         setMessages([...messages, data]);
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
         message.error("Error in sendeing message ");
         setNewMessage("");
         setIsLoading(false);
@@ -93,7 +93,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setIsLoading(false);
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
-      console.log(error);
       message.error("Error in fetching messages");
       setIsLoading(false);
     }
@@ -110,9 +109,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessageRecived.chat._id
       ) {
-        /// give notifiication
+        if (!notification.includes(newMessageRecived)) {
+          setNotification([newMessageRecived, ...notification]);
+          setFetchAgain(!fetchAgain);
+        }
       } else {
-        console.log(1);
         setMessages([...messages, newMessageRecived]);
       }
     });
@@ -120,8 +121,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
-    //////Typing indicator logic
-
     if (!isSocketConnected) return;
     if (!typing) {
       setTyping(true);
@@ -149,12 +148,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <>
                 {getSender(user, selectedChat?.users)}
                 <ProfileModal user={getSenderFull(user, selectedChat?.users)} />
-                <div className="flex flex-col justify-end p-3 bg-slate-400 rounded-lg overflow-hidden w-full h-full">
+                <div className="flex flex-col justify-end p-3  rounded-lg overflow-hidden w-full h-full">
                   {isLoading ? (
                     <Spin />
                   ) : (
                     <div className="flex flex-col w-full h-full justify-between">
-                      <div className="bg-yellow-200 h-full flex flex-col overflow-y-scroll">
+                      <div className="h-full flex flex-col overflow-y-scroll">
                         <ScrollableChat messages={messages} />
                       </div>
 

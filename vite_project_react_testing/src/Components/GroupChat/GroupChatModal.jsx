@@ -35,7 +35,6 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
       setIsLoading(false);
       setSearchResult(data);
     } catch (error) {
-      console.log({ error });
       setIsLoading(false);
       message.error("Failed to retrieve search results", error);
     }

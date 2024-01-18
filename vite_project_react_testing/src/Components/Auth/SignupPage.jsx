@@ -53,7 +53,6 @@ const SignupPage = () => {
       })
 
       .catch((err) => {
-        console.log({ err });
         setIsloading(false);
         message.error("Something went wrong");
       });
