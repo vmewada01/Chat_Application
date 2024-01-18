@@ -7,12 +7,6 @@ export const getSenderFull = (loggedUser, users) => {
 };
 
 export const isSameSender = (messages, m, i, userId) => {
-  console.log(
-    messages[i + 1]?.sender?._id,
-    m?.sender?._id,
-    "comparation",
-    userId
-  );
   return (
     i < messages?.length - 1 &&
     (messages[i + 1]?.sender?._id !== m?.sender?._id ||

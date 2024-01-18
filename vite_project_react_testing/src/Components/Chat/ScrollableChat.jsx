@@ -11,7 +11,6 @@ import {
 } from "../../config/ChatLogics";
 
 const ScrollableChat = ({ messages }) => {
-  console.log({ recivedMessages: messages });
   const { user } = useContext(ChatContext);
   return (
     <ScrollableFeed>
@@ -20,7 +19,6 @@ const ScrollableChat = ({ messages }) => {
           const sameSender = isSameSender(messages, m, i, user.userId);
           const lastMessage = isLastMessage(messages, i, user.userId);
 
-          console.log(sameSender, lastMessage, "information");
           return (
             <div className="flex m-1" key={i}>
               <>

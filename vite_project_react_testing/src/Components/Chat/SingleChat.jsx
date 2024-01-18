@@ -1,22 +1,48 @@
 import { Input, message, Spin } from "antd";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import Lottie from "react-lottie";
+import io from "socket.io-client";
+import ChattingAnimationData from "../../Animation/ChattingAnimation.json";
 import { getSender, getSenderFull } from "../../config/ChatLogics";
 import { ChatContext } from "../../Providers/ChatProvider";
 import UpdateGroupChatModal from "../GroupChat/UpdateGroupChatModal";
 import ProfileModal from "../Profile/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 
+const ENDPOINT = "http://localhost:5134";
+var socket, selectedChatCompare;
+
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat } = useContext(ChatContext);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-
+  const [isSocketConnected, setIsSocketConnected] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [newMessage, setNewMessage] = useState();
+  const [typing, setTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: ChattingAnimationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connection", () => setIsSocketConnected(true));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
+  }, []);
 
   const sendMessageFunction = async (e) => {
     if (e.key === "Enter" && newMessage) {
+      socket.emit("stop typing", selectedChat._id);
       try {
         setIsLoading(true);
         const config = {
@@ -35,7 +61,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           payload,
           config
         );
-
+        socket.emit("new message", data);
         setMessages([...messages, data]);
         setIsLoading(false);
       } catch (error) {
@@ -63,9 +89,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
         config
       );
-      console.log("messages", data);
       setMessages(data);
       setIsLoading(false);
+      socket.emit("join chat", selectedChat._id);
     } catch (error) {
       console.log(error);
       message.error("Error in fetching messages");
@@ -75,14 +101,45 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     fetchMessages();
+    selectedChatCompare = selectedChat;
   }, [selectedChat]);
 
-  console.log({ messages });
+  useEffect(() => {
+    socket.on("message recieved", (newMessageRecived) => {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageRecived.chat._id
+      ) {
+        /// give notifiication
+      } else {
+        console.log(1);
+        setMessages([...messages, newMessageRecived]);
+      }
+    });
+  });
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
     //////Typing indicator logic
+
+    if (!isSocketConnected) return;
+    if (!typing) {
+      setTyping(true);
+      socket.emit("typing", selectedChat._id);
+    }
+    let lastTypingTime = new Date().getTime();
+    var timerLength = 3000;
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDifference = timeNow - lastTypingTime;
+
+      if (timeDifference >= timerLength && typing) {
+        socket.emit("stop typing", selectedChat._id);
+        setTyping(false);
+      }
+    }, timerLength);
   };
+
   return (
     <div className="w-full h-full">
       {selectedChat ? (
@@ -93,15 +150,25 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 {getSender(user, selectedChat?.users)}
                 <ProfileModal user={getSenderFull(user, selectedChat?.users)} />
                 <div className="flex flex-col justify-end p-3 bg-slate-400 rounded-lg overflow-hidden w-full h-full">
-                  {/* Message will be displayed here */}
                   {isLoading ? (
                     <Spin />
                   ) : (
                     <div className="flex flex-col w-full h-full justify-between">
                       <div className="bg-yellow-200 h-full flex flex-col overflow-y-scroll">
-                        {/* ///messages will be displayed here */}
                         <ScrollableChat messages={messages} />
                       </div>
+
+                      {isTyping ? (
+                        <div>
+                          <Lottie
+                            options={defaultOptions}
+                            width={70}
+                            style={{ marginBottom: 15, marginLeft: 0 }}
+                          />
+                        </div>
+                      ) : (
+                        <></>
+                      )}
 
                       <Input
                         placeholder="Enter a message..."
