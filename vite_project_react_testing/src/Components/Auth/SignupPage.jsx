@@ -18,7 +18,7 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const onFinish = (values) => {
-    const payload = { ...values };
+    const payload = { ...values, picture: imageUrl };
 
     axios
       .post("http://localhost:5134/api/user", payload)
@@ -34,6 +34,7 @@ const SignupPage = () => {
 
         localStorage.setItem("userInfo", JSON.stringify(userInformation));
         form.resetFields();
+        form.setFieldsValue({});
         message.success("Signup Successfully");
         setIsloading(false);
         navigate("/chat");
@@ -42,6 +43,7 @@ const SignupPage = () => {
       .catch((err) => {
         setIsloading(false);
         message.error("Something went wrong");
+        form.resetFields();
       });
   };
   const handleFileUploadAtCloudinary = (event) => {
