@@ -77,6 +77,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     fetchMessages();
   }, [selectedChat]);
 
+  console.log({ messages });
+
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
     //////Typing indicator logic

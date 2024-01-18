@@ -3,27 +3,51 @@ import { Avatar, Tooltip } from "antd";
 import React, { useContext } from "react";
 import ScrollableFeed from "react-scrollable-feed";
 import { ChatContext } from "../../Providers/ChatProvider";
-import { isLastMessage, isSameSender } from "../../config/ChatLogics";
+import {
+  isLastMessage,
+  isSameSender,
+  isSameSenderMargin,
+  isSameUser,
+} from "../../config/ChatLogics";
 
 const ScrollableChat = ({ messages }) => {
+  console.log({ recivedMessages: messages });
   const { user } = useContext(ChatContext);
   return (
     <ScrollableFeed>
       {messages &&
         messages.map((m, i) => {
+          const sameSender = isSameSender(messages, m, i, user.userId);
+          const lastMessage = isLastMessage(messages, i, user.userId);
+
+          console.log(sameSender, lastMessage, "information");
           return (
-            <div className="flex" key={i}>
-              {(isSameSender(messages, m, i, user._id) ||
-                isLastMessage(messages, m, i, user._id)) && (
-                <>
-                  <Tooltip label={m.sender.name} placement="bottom">
+            <div className="flex m-1" key={i}>
+              <>
+                {(sameSender || lastMessage) && (
+                  <Tooltip
+                    title={m.sender.name}
+                    placement="bottom"
+                    className="mt-2"
+                  >
                     <Avatar icon={<UserOutlined />} />
                   </Tooltip>
-                  <span className="bg-green-300 text-white rounded-lg p-5">
-                    {m.content}
-                  </span>
-                </>
-              )}
+                )}
+                <span
+                  style={{
+                    backgroundColor: `${
+                      m.sender._id === user.userId ? "#90eeee" : "#cdffcd"
+                    }`,
+                    borderRadius: "20px",
+                    padding: "5px 15px",
+                    maxWidth: "75%",
+                    marginLeft: isSameSenderMargin(messages, m, i, user.userId),
+                    marginTop: isSameUser(messages, m, i, user.userId) ? 3 : 10,
+                  }}
+                >
+                  {m.content}
+                </span>
+              </>
             </div>
           );
         })}
