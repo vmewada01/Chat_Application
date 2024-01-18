@@ -12,6 +12,7 @@ const ProfileModal = ({ isModalOpen, onClose, handleOk, user }) => {
       open={isModalOpen}
       onOk={handleOk}
       onCancel={onClose}
+      footer={false}
     >
       <div>
         <div className="flex justify-center items-center">

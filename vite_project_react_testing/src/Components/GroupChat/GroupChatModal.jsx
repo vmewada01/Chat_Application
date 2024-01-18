@@ -87,6 +87,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
       open={isModalOpen}
       onOk={handleOk}
       onCancel={onClose}
+      footer={false}
     >
       <div>
         <Form
@@ -100,11 +101,11 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
             rules={[
               {
                 required: true,
-                message: "Chat name is required",
+                message: "Group name is required",
               },
             ]}
           >
-            <Input placeholder="Chat Name" />
+            <Input placeholder="Enter Group Name" />
           </Form.Item>
           <Form.Item name="usersName">
             <Input

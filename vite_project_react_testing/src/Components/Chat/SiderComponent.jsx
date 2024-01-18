@@ -35,12 +35,13 @@ const SiderComponent = ({ fetchAgain }) => {
   }, [fetchAgain]);
 
   return (
-    <div>
-      <div className="pb-3 px-3 text-lg flex justify-between items-center">
-        My Chats
+    <div className="w-1/3 bg-orange-300 rounded-lg">
+      <div className="pb-3 px-3 text-lg flex justify-between items-center mt-2">
+        <span className="font-bold text-lg italic">My Chats</span>
         <Button
           icon={<InfoOutlined />}
           onClick={() => setIsGroupChatModal(true)}
+          className="border-black "
         >
           New Group Chat
         </Button>
@@ -53,7 +54,7 @@ const SiderComponent = ({ fetchAgain }) => {
               return (
                 <div
                   onClick={() => setSelectedChat(chat)}
-                  className="cursor-pointer rounded-lg bg-cyan-500 mt-2 mb-2"
+                  className="cursor-pointer rounded-lg bg-green-200 mt-2 mb-2"
                   key={index}
                 >
                   <p className="p-3">

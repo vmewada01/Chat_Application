@@ -1,4 +1,4 @@
-import { Button, Drawer, Input, Space, Spin, message } from "antd";
+import { Button, Drawer, Input, Spin, message } from "antd";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
@@ -77,11 +77,7 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
       width={300}
       onClose={onClose}
       open={onOpen}
-      footer={
-        <Space>
-          <Button onClick={onClose}>Cancel</Button>
-        </Space>
-      }
+      footer={false}
     >
       <div className="flex gap-2">
         <Input

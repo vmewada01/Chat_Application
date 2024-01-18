@@ -42,18 +42,19 @@ const HeaderComponent = () => {
   ];
 
   return (
-    <div className="flex justify-between p-2">
+    <div className="flex justify-between p-2 bg-sky-200">
       <div>
         <Tooltip placement="bottom" title={"Search Chat User here"}>
           <Button
             icon={<SearchOutlined />}
             onClick={() => setIsUserSearchDrawer(true)}
+            className="border-black"
           >
             Search User
           </Button>
         </Tooltip>
       </div>
-      <div>TALK-A-TIVE</div>
+      <div>★★★ V-CHAT-APPLICATION ★★★</div>
       <div>
         <Badge count={notification.length}>
           <Dropdown
@@ -88,7 +89,7 @@ const HeaderComponent = () => {
               className="ant-dropdown-link"
               onClick={(e) => e.preventDefault()}
             >
-              <Avatar icon={<BellOutlined />} shape="circle" size="large" />
+              <Avatar icon={<BellOutlined />} shape="circle" size="small" />
             </a>
           </Dropdown>
         </Badge>

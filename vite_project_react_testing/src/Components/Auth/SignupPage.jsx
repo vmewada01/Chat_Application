@@ -18,23 +18,10 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const onFinish = (values) => {
-    // const data = new FormData();
-    // data.append("name", values.name);
-    // data.append("password", values.password);
-    // data.append("email", values.email);
-    // data.append("file", imageUrl);
     const payload = { ...values };
 
     axios
-      .post(
-        "http://localhost:5134/api/user",
-        payload
-        //  {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        // }
-      )
+      .post("http://localhost:5134/api/user", payload)
 
       .then((res) => {
         const userInformation = {

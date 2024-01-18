@@ -6,8 +6,8 @@ const MainComponent = ({ fetchAgain, setFetchAgain }) => {
   const { selectedChat } = useContext(ChatContext);
   return (
     <div
-      style={{ height: "100vh", width: "100vh" }}
-      className="flex items-center rounded-lg border-black p-3 flex-col w-full bg-white"
+      style={{ height: "90vh", width: "100%" }}
+      className="flex items-center rounded-lg border-black p-3 flex-col bg-white"
     >
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
     </div>

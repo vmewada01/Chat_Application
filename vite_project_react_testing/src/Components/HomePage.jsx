@@ -20,7 +20,7 @@ const HomePage = () => {
       <div>
         <Card bordered={false} className="w-1/2 m-auto mt-2 ">
           <p className="flex justify-center text-purple-500 font-bold text-2xl ">
-            {/* ★★★ V-CHAT-APPLICATION ★★★ */}
+            ★★★ V-CHAT-APPLICATION ★★★
           </p>
         </Card>
       </div>

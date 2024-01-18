@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ChatContext = createContext();
 
@@ -9,6 +9,7 @@ const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
   const [notification, setNotification] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -16,7 +17,7 @@ const ChatProvider = ({ children }) => {
     if (!userInfo) {
       navigate("/");
     }
-  }, [window.location]);
+  }, [location.pathname]);
 
   return (
     <ChatContext.Provider
