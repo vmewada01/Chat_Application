@@ -9,7 +9,8 @@ import GroupChatModal from "../GroupChat/GroupChatModal";
 const SiderComponent = ({ fetchAgain }) => {
   const [isGroupChatModal, setIsGroupChatModal] = useState(false);
   const [loggedUser, setLoggedUser] = useState([]);
-  const { user, setSelectedChat, chats, setChats } = useContext(ChatContext);
+  const { user, setSelectedChat, chats, setChats, selectedChat } =
+    useContext(ChatContext);
   const fetchChats = async () => {
     try {
       const config = {
@@ -56,7 +57,11 @@ const SiderComponent = ({ fetchAgain }) => {
             {chats.map((chat, index) => {
               return (
                 <div
-                  style={{ backgroundColor: "#86B6F6" }}
+                  style={{
+                    backgroundColor:
+                      selectedChat === chat ? "#176B87" : "#B4D4FF",
+                    color: selectedChat === chat ? "white" : "black",
+                  }}
                   onClick={() => setSelectedChat(chat)}
                   className="cursor-pointer rounded-lg mt-1 mb-1"
                   key={index}
