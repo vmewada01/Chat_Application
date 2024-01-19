@@ -1,5 +1,4 @@
 import {
-  ArrowUpOutlined,
   EyeInvisibleOutlined,
   EyeTwoTone,
   LockOutlined,
@@ -18,7 +17,7 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const onFinish = (values) => {
-    const payload = { ...values, picture: imageUrl };
+    const payload = { ...values };
 
     axios
       .post("http://localhost:5134/api/user", payload)
@@ -108,14 +107,6 @@ const SignupPage = () => {
               }
               type="password"
               placeholder="Password"
-            />
-          </Form.Item>
-          <Form.Item name="picture">
-            <Input
-              prefix={<ArrowUpOutlined className="site-form-item-icon" />}
-              type="file"
-              accept=".jpeg,.jpg,.png"
-              onChange={handleFileUploadAtCloudinary}
             />
           </Form.Item>
 

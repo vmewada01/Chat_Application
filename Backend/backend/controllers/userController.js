@@ -27,37 +27,6 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("User already exist");
   }
 
-  // if (picture) {
-  //   cloudinary.uploader.upload(picture, async (err, result) => {
-  //     if (err) {
-  //       console.log("error", err);
-  //       return res
-  //         .status(500)
-  //         .send({ message: "Something went wrong please try again later" });
-  //     }
-
-  //     const user = await User.create({
-  //       name,
-  //       email,
-  //       password,
-  //       picture: result.url,
-  //     });
-
-  //     if (user) {
-  //       res.status(201).json({
-  //         _id: user.id,
-  //         name: user.name,
-  //         email: user.email,
-  //         picture: user.picture,
-  //         token: generateToken(user._id),
-  //       });
-  //       await unlinkFile(picture);
-  //     } else {
-  //       res.status(400);
-  //       throw new Error("Failed to create the User");
-  //     }
-  //   });
-  // } else {
   const user = await User.create({
     name,
     email,
@@ -77,7 +46,6 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Failed to create the User");
   }
-  // }
 });
 
 const authUser = asyncHandler(async (req, res) => {
