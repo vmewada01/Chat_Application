@@ -206,7 +206,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 </div>
               </>
             ) : (
-              <div className="flex justify-between w-full">
+              <div
+                style={{ backgroundColor: "#B4D4FF" }}
+                className="flex justify-between w-full p-2 rounded-md"
+              >
                 <span className="font-semibold text-lg">
                   {selectedChat?.chatName?.toUpperCase()}
                 </span>

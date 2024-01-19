@@ -17,10 +17,6 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const [isRenameLoading, setIsRenameLoading] = useState(false);
 
   const handleRemoveUser = async (user1) => {
-    if (selectedChat.users.find((u) => u._id === user1._id)) {
-      message.info("User already added");
-      return;
-    }
     if (selectedChat.groupAdmin._id !== user._id) {
       message.info("Only Admins can add new members");
       return;
@@ -75,6 +71,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
       setIsRenameLoading(false);
+      setGroupChatName("");
     } catch (error) {
       setIsRenameLoading(false);
       message.error("Failed to rename chat");
@@ -148,6 +145,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   return (
     <>
       <Button
+        className="border-black"
         icon={<EyeOutlined />}
         onClick={() => setIsModalOpen(true)}
       ></Button>
@@ -160,6 +158,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         open={isModalOpen}
         onOk={() => setIsModalOpen(false)}
         onCancel={() => setIsModalOpen(false)}
+        footer={false}
       >
         {selectedChat?.users?.map((u) => {
           return (
@@ -172,28 +171,31 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             </>
           );
         })}
-        <div className="flex">
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-2">
+            {isRenameLoading && <Spin />}
+            <Input
+              value={groupChatName}
+              onChange={(e) => setGroupChatName(e.target.value)}
+              placeholder="Rename Group Name"
+            />{" "}
+            <span>
+              <Button onClick={handleRenameFunction}>Update</Button>
+            </span>
+          </div>
           <Input
-            value={groupChatName}
-            onChange={(e) => setGroupChatName(e.target.value)}
-            placeholder="Rename"
-          />{" "}
-          <span>
-            <Button onClick={handleRenameFunction}>Update</Button>
-          </span>
-        </div>
-        <Input
-          placeholder="Add User eg: Jatin, Safal, etc..."
-          onChange={(e) => handleChange(e.target.value)}
-        />
-
-        {selectedUser?.map((user) => (
-          <UserBadgeItem
-            key={user.id}
-            user={user}
-            handleFunction={() => handleDelete(user)}
+            placeholder="Add User eg: Jatin, Safal, etc..."
+            onChange={(e) => handleChange(e.target.value)}
           />
-        ))}
+
+          {selectedUser?.map((user) => (
+            <UserBadgeItem
+              key={user.id}
+              user={user}
+              handleFunction={() => handleRemoveUser(user)}
+            />
+          ))}
+        </div>
 
         {isLoading ? (
           <Spin />
