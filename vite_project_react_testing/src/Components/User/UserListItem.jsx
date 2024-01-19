@@ -6,7 +6,7 @@ const UserListItem = ({ singleUser, handleUserAccess }) => {
     <>
       <div
         onClick={handleUserAccess}
-        className="cursor-pointer  flex gap-3 rounded-md items-center hover:bg-lime-200 text-black w-full "
+        className="cursor-pointer mt-2 mb-2 flex gap-3 rounded-md items-center hover:bg-lime-200 text-black w-full "
       >
         <Image
           className="w-8 h-20 rounded-full"

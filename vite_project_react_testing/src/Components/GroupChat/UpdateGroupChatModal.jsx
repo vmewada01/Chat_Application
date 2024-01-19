@@ -1,5 +1,5 @@
 import { EyeOutlined } from "@ant-design/icons";
-import { Button, Input, Modal, Spin, message } from "antd";
+import { Button, Input, Modal, Spin, Tooltip, message } from "antd";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
@@ -144,11 +144,14 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   };
   return (
     <>
-      <Button
-        className="border-black"
-        icon={<EyeOutlined />}
-        onClick={() => setIsModalOpen(true)}
-      ></Button>
+      <Tooltip placement="bottom" title="Group Info">
+        <Button
+          className="border-black"
+          icon={<EyeOutlined />}
+          onClick={() => setIsModalOpen(true)}
+        ></Button>
+      </Tooltip>
+
       <Modal
         title={
           <p className="font-semibold flex justify-center items-center italic">

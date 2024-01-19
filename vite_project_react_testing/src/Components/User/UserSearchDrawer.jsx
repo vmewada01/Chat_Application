@@ -1,4 +1,5 @@
-import { Button, Drawer, Input, Spin, message } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import { Button, Drawer, Input, Spin, Tooltip, message } from "antd";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
@@ -90,12 +91,18 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
     >
       <div className="flex gap-2">
         <Input
+          autoFocus={true}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placement="search here....."
           onKeyDown={handleKeyDownFunction}
         />
-        <Button onClick={handleSearchFunction}>Go</Button>
+        <Tooltip placement="bottom" title={"Search"}>
+          <Button
+            onClick={handleSearchFunction}
+            icon={<SearchOutlined />}
+          ></Button>
+        </Tooltip>
       </div>
       {isLoading && <Spin className="flex justify-center items-center p-3" />}
       {searchResult.length > 0 &&

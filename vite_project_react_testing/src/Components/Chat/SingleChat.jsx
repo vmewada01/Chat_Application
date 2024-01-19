@@ -1,5 +1,5 @@
 import { EyeOutlined } from "@ant-design/icons";
-import { Button, Input, Spin, message } from "antd";
+import { Button, Input, Spin, Tooltip, message } from "antd";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Lottie from "react-lottie";
@@ -76,7 +76,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-  console.log(messages.length, "new message llength");
   const fetchMessages = async () => {
     if (!selectedChat) {
       return;
@@ -158,12 +157,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   <span className="font-semibold text-lg">
                     {getSender(user, selectedChat?.users)}
                   </span>
-
-                  <Button
-                    className="border-black"
-                    icon={<EyeOutlined />}
-                    onClick={() => setIsModalOpen(true)}
-                  ></Button>
+                  <Tooltip placement="bottom" title="Profile">
+                    <Button
+                      className="border-black"
+                      icon={<EyeOutlined />}
+                      onClick={() => setIsModalOpen(true)}
+                    ></Button>
+                  </Tooltip>
                 </div>
 
                 <ProfileModal
@@ -174,7 +174,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 />
                 <div className="flex flex-col justify-end p-3  rounded-lg overflow-hidden w-full h-full">
                   {isLoading ? (
-                    <Spin />
+                    <Spin className="flex justify-center items-center m-auto" />
                   ) : (
                     <div className="flex flex-col w-full h-full justify-between">
                       <div className="h-full flex flex-col overflow-y-scroll">
@@ -194,6 +194,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       )}
 
                       <Input
+                        autoFocus={true}
                         className="p-2 text-bold"
                         placeholder="Enter a message..."
                         required={true}
