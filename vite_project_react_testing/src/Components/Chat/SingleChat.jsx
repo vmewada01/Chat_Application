@@ -177,7 +177,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     <Spin className="flex justify-center items-center m-auto" />
                   ) : (
                     <div className="flex flex-col w-full h-full justify-between">
-                      <div className="h-full flex flex-col overflow-y-scroll">
+                      <div className="h-full flex flex-col">
                         <ScrollableChat messages={messages} />
                       </div>
 
