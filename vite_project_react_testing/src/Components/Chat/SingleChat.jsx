@@ -64,13 +64,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           config
         );
 
-        setMessages((prevMessages) => [...prevMessages, data]);
         socket.emit("new message", data);
+        setMessages((prevMessages) => [...prevMessages, data]);
 
         setIsLoading(false);
       } catch (error) {
         message.error("Error in sendeing message ");
-        setNewMessage("");
         setIsLoading(false);
       }
     }
