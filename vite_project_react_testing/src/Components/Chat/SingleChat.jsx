@@ -63,8 +63,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           payload,
           config
         );
+
+        setMessages((prevMessages) => [...prevMessages, data]);
         socket.emit("new message", data);
-        setMessages([...messages, data]);
+
         setIsLoading(false);
       } catch (error) {
         message.error("Error in sendeing message ");
@@ -74,6 +76,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
+  console.log(messages.length, "new message llength");
   const fetchMessages = async () => {
     if (!selectedChat) {
       return;
@@ -90,6 +93,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
         config
       );
+
       setMessages(data);
       setIsLoading(false);
       socket.emit("join chat", selectedChat._id);
@@ -147,12 +151,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           <div className="flex flex-col items-center content-center w-full h-full">
             {!selectedChat?.isGroupChat ? (
               <>
-                <div className="flex justify-between w-full">
+                <div
+                  style={{ backgroundColor: "#B4D4FF" }}
+                  className="flex justify-between w-full p-2 rounded-md"
+                >
                   <span className="font-semibold text-lg">
                     {getSender(user, selectedChat?.users)}
                   </span>
 
                   <Button
+                    className="border-black"
                     icon={<EyeOutlined />}
                     onClick={() => setIsModalOpen(true)}
                   ></Button>

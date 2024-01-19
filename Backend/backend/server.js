@@ -42,6 +42,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join chat", (chatEnvironment) => {
+    console.log("chat joined");
     socket.join(chatEnvironment);
   });
 
@@ -57,6 +58,7 @@ io.on("connection", (socket) => {
     if (!chat.users) return;
 
     chat.users.forEach((user) => {
+      console.log("chat joing with user id", user._id);
       if (user._id === newMessageRecived.sender._id) return;
       socket.in(user._id).emit("message recieved", newMessageRecived);
     });

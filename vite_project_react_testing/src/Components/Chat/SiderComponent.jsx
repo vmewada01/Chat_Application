@@ -35,7 +35,10 @@ const SiderComponent = ({ fetchAgain }) => {
   }, [fetchAgain]);
 
   return (
-    <div className="w-1/3 bg-orange-300 rounded-lg">
+    <div
+      style={{ backgroundColor: "#EEF5FF" }}
+      className="w-1/3  rounded-lg p-2"
+    >
       <div className="pb-3 px-3 text-lg flex justify-between items-center mt-2">
         <span className="font-bold text-lg italic">My Chats</span>
         <Button
@@ -53,8 +56,9 @@ const SiderComponent = ({ fetchAgain }) => {
             {chats.map((chat, index) => {
               return (
                 <div
+                  style={{ backgroundColor: "#86B6F6" }}
                   onClick={() => setSelectedChat(chat)}
-                  className="cursor-pointer rounded-lg bg-green-200 mt-1 mb-1"
+                  className="cursor-pointer rounded-lg mt-1 mb-1"
                   key={index}
                 >
                   <p className="p-3">

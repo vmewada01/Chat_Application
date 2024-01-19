@@ -81,9 +81,9 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
       placement={"left"}
       width={300}
       onClose={() => {
-        onClose();
         setSearchResult([]);
         setSearch("");
+        onClose();
       }}
       open={onOpen}
       footer={false}

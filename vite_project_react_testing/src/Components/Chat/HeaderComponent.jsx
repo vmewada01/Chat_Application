@@ -5,7 +5,16 @@ import {
   UserAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Badge, Button, Dropdown, Menu, Tooltip, message } from "antd";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Dropdown,
+  Image,
+  Menu,
+  Tooltip,
+  message,
+} from "antd";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChatContext } from "../../Providers/ChatProvider";
@@ -42,7 +51,10 @@ const HeaderComponent = () => {
   ];
 
   return (
-    <div className="flex justify-between p-2 bg-sky-200">
+    <div
+      style={{ backgroundColor: "#B4D4FF" }}
+      className="flex justify-between p-2"
+    >
       <div>
         <Tooltip placement="bottom" title={"Search Chat User here"}>
           <Button
@@ -54,7 +66,17 @@ const HeaderComponent = () => {
           </Button>
         </Tooltip>
       </div>
-      <div>★★★ V-CHAT-APPLICATION ★★★</div>
+      <div className="flex justify-center items-center">
+        {` CHAT-`}
+        <Image
+          src="./v-logo.jpg"
+          preview={false}
+          width={40}
+          className="rounded-lg"
+          alt="V-Chat Logo"
+        />
+        {`-APPLICATION`}
+      </div>
       <div>
         <Badge count={notification.length}>
           <Dropdown

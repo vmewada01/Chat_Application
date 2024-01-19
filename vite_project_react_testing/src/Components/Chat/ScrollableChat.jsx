@@ -20,13 +20,13 @@ const ScrollableChat = ({ messages }) => {
           const lastMessage = isLastMessage(messages, i, user.userId);
 
           return (
-            <div className="flex m-1" key={i}>
+            <div className="flex m-1 item-center " key={i}>
               <>
                 {(sameSender || lastMessage) && (
                   <Tooltip
                     title={m.sender.name}
                     placement="bottom"
-                    className="mt-2"
+                    className="mt-3 mr-1"
                   >
                     <Avatar icon={<UserOutlined />} />
                   </Tooltip>
@@ -34,7 +34,7 @@ const ScrollableChat = ({ messages }) => {
                 <span
                   style={{
                     backgroundColor: `${
-                      m.sender._id === user.userId ? "#90eeee" : "#cdffcd"
+                      m.sender._id === user.userId ? "#EEF5FF" : "#cdffcd"
                     }`,
                     borderRadius: "20px",
                     padding: "5px 15px",
