@@ -12,7 +12,9 @@ import ProfileModal from "../Profile/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 
 const ENDPOINT = "http://localhost:5134";
-var socket, selectedChatCompare;
+
+var socket;
+var selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -123,7 +125,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     });
   });
 
-  console.log(selectedChat, "selected Chat");
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
     if (!isSocketConnected) return;
