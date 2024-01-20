@@ -15,13 +15,11 @@ const ENDPOINT = "http://localhost:5134";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  const { user, selectedChat, setSelectedChat, notification, setNotification } =
-    useContext(ChatContext);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isSocketConnected, setIsSocketConnected] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [newMessage, setNewMessage] = useState();
+  const [newMessage, setNewMessage] = useState("");
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -34,13 +32,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     },
   };
 
-  useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", user);
-    socket.on("connection", () => setIsSocketConnected(true));
-    socket.on("typing", () => setIsTyping(true));
-    socket.on("stop typing", () => setIsTyping(false));
-  }, []);
+  const { user, selectedChat, setSelectedChat, notification, setNotification } =
+    useContext(ChatContext);
 
   const sendMessageFunction = async (e) => {
     if (e.key === "Enter" && newMessage) {
@@ -65,7 +58,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         );
 
         socket.emit("new message", data);
-        setMessages((prevMessages) => [...prevMessages, data]);
+        setMessages([...messages, data]);
 
         setIsLoading(false);
       } catch (error) {
@@ -102,6 +95,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connected", () => setIsSocketConnected(true));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
+  }, []);
+
+  useEffect(() => {
     fetchMessages();
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
@@ -122,6 +123,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     });
   });
 
+  console.log(selectedChat, "selected Chat");
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
     if (!isSocketConnected) return;

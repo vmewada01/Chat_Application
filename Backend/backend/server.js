@@ -38,7 +38,7 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   socket.on("setup", (userData) => {
     socket.join(userData.userId);
-    socket.emit("connection");
+    socket.emit("connected");
   });
 
   socket.on("join chat", (chatEnvironment) => {
@@ -58,13 +58,14 @@ io.on("connection", (socket) => {
     if (!chat.users) return;
 
     chat.users.forEach((user) => {
-      if (user._id === newMessageRecived.sender._id) return;
+      if (user._id == newMessageRecived.sender._id) return;
       socket.in(user._id).emit("message recieved", newMessageRecived);
       console.log("chat joing with user id", user._id);
     });
   });
 
-  socket.off("setup", () => {
+  socket.off("setup", (userData) => {
+    console.log("user disconnected");
     socket.leave(userData.userId);
   });
 });
