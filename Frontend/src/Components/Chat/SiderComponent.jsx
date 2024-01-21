@@ -40,15 +40,19 @@ const SiderComponent = ({ fetchAgain }) => {
       style={{ backgroundColor: "#EEF5FF" }}
       className="w-1/3  rounded-lg p-2"
     >
-      <div className="pb-3 px-3 text-lg flex justify-between items-center mt-2">
-        <span className="font-bold text-lg italic">My Chats</span>
-        <Button
-          icon={<InfoOutlined />}
-          onClick={() => setIsGroupChatModal(true)}
-          className="border-black "
-        >
-          New Group Chat
-        </Button>
+      <div className="pb-3 px-3 text-lg flex flex-wrap justify-between items-center mt-2 w-full">
+        <div className="font-bold  text-lg italic md:flex justify-center sm:flex justify-center">
+          My Chats
+        </div>
+        <div>
+          <Button
+            icon={<InfoOutlined />}
+            onClick={() => setIsGroupChatModal(true)}
+            className="border-black"
+          >
+            Create Group
+          </Button>
+        </div>
       </div>
 
       <div className="flex flex-col overflow-hidden rounded-lg">
