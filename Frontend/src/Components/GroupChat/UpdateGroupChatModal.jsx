@@ -162,6 +162,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         onOk={() => setIsModalOpen(false)}
         onCancel={() => setIsModalOpen(false)}
         footer={false}
+        width={500}
       >
         {selectedChat?.users?.map((u) => {
           return (
@@ -213,6 +214,18 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             </div>
           ))
         )}
+        <div className="pt-3 pb-3">
+          <Button
+            className="float-right"
+            danger
+            onClick={() => {
+              handleRemoveUser(user);
+              setIsModalOpen(false);
+            }}
+          >
+            Leave Group
+          </Button>
+        </div>
       </Modal>
     </>
   );
