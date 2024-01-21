@@ -209,48 +209,56 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 </div>
               </>
             ) : (
-              <div
-                style={{ backgroundColor: "#B4D4FF" }}
-                className="flex justify-between w-full p-2 rounded-md"
-              >
-                <span className="font-semibold text-lg">
-                  {selectedChat?.chatName?.toUpperCase()}
-                </span>
-
-                <UpdateGroupChatModal
-                  fetchAgain={fetchAgain}
-                  setFetchAgain={setFetchAgain}
-                  fetchMessages={fetchMessages}
-                />
-              </div>
-            )}
-            <div className="flex flex-col w-full h-full justify-between">
-              <div className="h-full flex flex-col">
-                <ScrollableChat messages={messages} />
-              </div>
-
-              {isTyping ? (
-                <div>
-                  <Lottie
-                    options={defaultOptions}
-                    width={70}
-                    style={{ marginBottom: 15, marginLeft: 0 }}
+              <>
+                <div
+                  style={{ backgroundColor: "#B4D4FF" }}
+                  className="flex justify-between w-full p-2 rounded-md"
+                >
+                  <span className="font-semibold text-lg">
+                    {selectedChat?.chatName?.toUpperCase()}
+                  </span>
+                  <UpdateGroupChatModal
+                    fetchAgain={fetchAgain}
+                    setFetchAgain={setFetchAgain}
+                    fetchMessages={fetchMessages}
                   />
                 </div>
-              ) : (
-                <></>
-              )}
 
-              <Input
-                autoFocus={true}
-                className="p-2 text-bold"
-                placeholder="Enter a message..."
-                required={true}
-                onKeyDown={sendMessageFunction}
-                onChange={typingHandler}
-                value={newMessage}
-              />
-            </div>
+                <div className="flex flex-col justify-end p-3  rounded-lg overflow-hidden w-full h-full">
+                  {isLoading ? (
+                    <Spin className="flex justify-center items-center m-auto" />
+                  ) : (
+                    <div className="flex flex-col w-full h-full justify-between">
+                      <div className="h-full flex flex-col">
+                        <ScrollableChat messages={messages} />
+                      </div>
+
+                      {isTyping ? (
+                        <div>
+                          <Lottie
+                            options={defaultOptions}
+                            width={70}
+                            style={{ marginBottom: 15, marginLeft: 0 }}
+                          />
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+
+                      <Input
+                        autoFocus={true}
+                        className="p-2 text-bold"
+                        placeholder="Enter a message..."
+                        required={true}
+                        onKeyDown={sendMessageFunction}
+                        onChange={typingHandler}
+                        value={newMessage}
+                      />
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </>
       ) : (
