@@ -20,7 +20,7 @@ const SignupPage = () => {
     const payload = { ...values };
 
     axios
-      .post("https://v-chat-app-kpbs.onrender.com/api/user", payload)
+      .post("http://localhost:5134/api/user", payload)
 
       .then((res) => {
         const userInformation = {

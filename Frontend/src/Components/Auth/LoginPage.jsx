@@ -17,7 +17,7 @@ const LoginPage = () => {
   const onFinish = (values) => {
     const payload = { ...values };
     axios
-      .post("https://v-chat-app-kpbs.onrender.com/api/user/login", payload)
+      .post("http://localhost:5134/api/user/login", payload)
       .then((res) => {
         const userInformation = {
           name: res.data.name,

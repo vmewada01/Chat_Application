@@ -29,7 +29,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
       };
 
       const { data } = await axios.get(
-        `https://v-chat-app-kpbs.onrender.com/api/user?search=${query}`,
+        `http://localhost:5134/api/user?search=${query}`,
         config
       );
       setIsLoading(false);
@@ -67,7 +67,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
       };
 
       const { data } = await axios.post(
-        `https://v-chat-app-kpbs.onrender.com/api/chat/group`,
+        `http://localhost:5134/api/chat/group`,
         payload,
         config
       );

@@ -11,7 +11,7 @@ import UpdateGroupChatModal from "../GroupChat/UpdateGroupChatModal";
 import ProfileModal from "../Profile/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 
-const ENDPOINT = "https://v-chat-app-kpbs.onrender.com/";
+const ENDPOINT = "http://localhost:5173";
 
 var socket;
 var selectedChatCompare;
@@ -224,6 +224,33 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 />
               </div>
             )}
+            <div className="flex flex-col w-full h-full justify-between">
+              <div className="h-full flex flex-col">
+                <ScrollableChat messages={messages} />
+              </div>
+
+              {isTyping ? (
+                <div>
+                  <Lottie
+                    options={defaultOptions}
+                    width={70}
+                    style={{ marginBottom: 15, marginLeft: 0 }}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+
+              <Input
+                autoFocus={true}
+                className="p-2 text-bold"
+                placeholder="Enter a message..."
+                required={true}
+                onKeyDown={sendMessageFunction}
+                onChange={typingHandler}
+                value={newMessage}
+              />
+            </div>
           </div>
         </>
       ) : (
