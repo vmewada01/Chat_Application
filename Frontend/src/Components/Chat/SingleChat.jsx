@@ -11,7 +11,7 @@ import UpdateGroupChatModal from "../GroupChat/UpdateGroupChatModal";
 import ProfileModal from "../Profile/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 
-const ENDPOINT = "http://localhost:5134";
+const ENDPOINT = "https://v-chat-app-kpbs.onrender.com/";
 
 var socket;
 var selectedChatCompare;
@@ -54,7 +54,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          "http://localhost:5134/api/messages",
+          "https://v-chat-app-kpbs.onrender.com/api/messages",
           payload,
           config
         );
@@ -82,7 +82,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.get(
-        `http://localhost:5134/api/messages/${selectedChat._id}`,
+        `https://v-chat-app-kpbs.onrender.com/api/messages/${selectedChat._id}`,
 
         config
       );

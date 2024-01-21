@@ -27,7 +27,7 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:5134/api/user?search=${search}`,
+        `https://v-chat-app-kpbs.onrender.com/api/user?search=${search}`,
         config
       );
 
@@ -49,7 +49,7 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
         },
       };
       const { data } = await axios.post(
-        `http://localhost:5134/api/chat/`,
+        `https://v-chat-app-kpbs.onrender.com/api/chat/`,
         {
           userId,
         },
