@@ -11,7 +11,7 @@ import UpdateGroupChatModal from "../GroupChat/UpdateGroupChatModal";
 import ProfileModal from "../Profile/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 
-const ENDPOINT = "http://localhost:5173";
+const ENDPOINT = "https://v-chat-app-kpbs.onrender.com";
 
 var socket;
 var selectedChatCompare;
