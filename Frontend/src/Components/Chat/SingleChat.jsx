@@ -11,7 +11,7 @@ import UpdateGroupChatModal from "../GroupChat/UpdateGroupChatModal";
 import ProfileModal from "../Profile/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 
-const ENDPOINT = "https://v-chat-app-kpbs.onrender.com";
+const ENDPOINT = "v-chat-app-kpbs.onrender.com/";
 
 var socket;
 var selectedChatCompare;
@@ -111,6 +111,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecived) => {
+      console.log("working recieved message");
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessageRecived.chat._id
