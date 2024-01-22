@@ -20,7 +20,7 @@ const SiderComponent = ({ fetchAgain }) => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:5134/api/chat`,
+        `https://v-chat-app-kpbs.onrender.com/api/chat`,
         config
       );
 

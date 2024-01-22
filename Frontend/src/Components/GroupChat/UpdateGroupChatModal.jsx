@@ -34,7 +34,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         userId: user1._id,
       };
       const { data } = await axios.put(
-        "http://localhost:5134/api/chat/groupRemove",
+        "https://v-chat-app-kpbs.onrender.com/api/chat/groupRemove",
         payload,
         config
       );
@@ -63,7 +63,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         chatName: groupChatName,
       };
       const { data } = await axios.put(
-        "http://localhost:5134/api/chat/rename",
+        "https://v-chat-app-kpbs.onrender.com/api/chat/rename",
         payload,
         config
       );
@@ -94,7 +94,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:5134/api/user?search=${query}`,
+        `https://v-chat-app-kpbs.onrender.com/api/user?search=${query}`,
         config
       );
       setIsLoading(false);
@@ -128,7 +128,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         userId: user1._id,
       };
       const { data } = await axios.put(
-        "http://localhost:5134/api/chat/groupAdd",
+        "https://v-chat-app-kpbs.onrender.com/api/chat/groupAdd",
         payload,
         config
       );
