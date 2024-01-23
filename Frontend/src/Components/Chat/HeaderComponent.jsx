@@ -67,7 +67,6 @@ const HeaderComponent = () => {
         </Tooltip>
       </div>
       <div className="flex justify-center items-center">
-        {` CHAT-`}
         <Image
           src="./v-logo.jpg"
           preview={false}
@@ -75,7 +74,6 @@ const HeaderComponent = () => {
           className="rounded-lg"
           alt="V-Chat Logo"
         />
-        {`-APPLICATION`}
       </div>
       <div>
         <Badge count={notification.length}>

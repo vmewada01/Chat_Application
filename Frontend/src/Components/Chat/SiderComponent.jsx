@@ -37,25 +37,27 @@ const SiderComponent = ({ fetchAgain }) => {
 
   return (
     <div
-      style={{ backgroundColor: "#EEF5FF" }}
+      style={{ backgroundColor: "#EEF5FF", height: "90vh" }}
       className="w-1/3  rounded-lg p-2"
     >
-      <div className="pb-3 px-3 text-lg flex flex-wrap justify-between items-center mt-2 w-full">
-        <div className="font-bold  text-lg italic md:flex justify-center sm:flex justify-center">
-          My Chats
-        </div>
-        <div>
-          <Button
-            icon={<InfoOutlined />}
-            onClick={() => setIsGroupChatModal(true)}
-            className="border-black"
-          >
-            Create Group
-          </Button>
-        </div>
+      <div
+        style={{ position: "sticky", top: 0 }}
+        className="pb-3 px-3 text-lg flex flex-wrap justify-between items-center mt-2 w-full"
+      >
+        <p className="font-bold text-lg italic">My Chats</p>
+        <Button
+          icon={<InfoOutlined />}
+          onClick={() => setIsGroupChatModal(true)}
+          className="border-black"
+        >
+          Create Group
+        </Button>
       </div>
 
-      <div className="flex flex-col overflow-hidden rounded-lg">
+      <div
+        style={{ height: "75vh" }}
+        className="flex flex-col overflow-y-scroll h-full rounded-lg"
+      >
         {chats && (
           <>
             {chats.map((chat, index) => {

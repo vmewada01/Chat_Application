@@ -88,6 +88,7 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
       }}
       open={onOpen}
       footer={false}
+      destroyOnClose={true}
     >
       <div className="flex gap-2">
         <Input
@@ -105,6 +106,9 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
         </Tooltip>
       </div>
       {isLoading && <Spin className="flex justify-center items-center p-3" />}
+      {isLoadingChat && (
+        <Spin className="flex justify-center items-center p-3" />
+      )}
       {searchResult.length > 0 &&
         searchResult?.map((user, index) => {
           return (
@@ -115,9 +119,6 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
             />
           );
         })}
-      {isLoadingChat && (
-        <Spin className="flex justify-center items-center p-3" />
-      )}
     </Drawer>
   );
 };

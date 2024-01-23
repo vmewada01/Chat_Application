@@ -163,6 +163,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         onCancel={() => setIsModalOpen(false)}
         footer={false}
         width={500}
+        destroyOnClose={true}
       >
         {selectedChat?.users?.map((u) => {
           return (
@@ -202,7 +203,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         </div>
 
         {isLoading ? (
-          <Spin />
+          <Spin className="flex justify-center items-center mt-2" />
         ) : (
           searchResult?.slice(0, 4).map((user) => (
             <div className="flex flex-wrap">
@@ -219,8 +220,12 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             className="float-right"
             danger
             onClick={() => {
-              handleRemoveUser(user);
-              setIsModalOpen(false);
+              handleRemoveUser(user).then(() => {
+                setSearchResult([]);
+                setSelectedUser([]);
+                setGroupChatName();
+                setIsModalOpen(false);
+              });
             }}
           >
             Leave Group

@@ -1,5 +1,5 @@
 import { UserAddOutlined, UserSwitchOutlined } from "@ant-design/icons";
-import { Card, Image, Space, Tabs } from "antd";
+import { Image, Space, Tabs } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginPage from "./Auth/LoginPage";
@@ -16,22 +16,16 @@ const HomePage = () => {
   }, [window.location]);
   return (
     <div className="sticky-background">
-      <div>
-        <Card bordered={false} className="w-1/2 m-auto mt-2 ">
-          <p className="flex justify-center text-sky-600 font-bold text-2xl">
-            {` CHAT-`}
-            <Image
-              src="./v-logo.jpg"
-              preview={false}
-              width={40}
-              className="rounded-lg"
-              alt="V-Chat Logo"
-            />
-            {`-APPLICATION`}
-          </p>
-        </Card>
-      </div>
       <div className="shadow-lg p-4 w-1/2 m-auto mt-8 rounded-lg bg-white">
+        <p className="flex justify-center items-center text-sky-600 font-bold text-2xl ">
+          <Image
+            src="./v-logo.jpg"
+            preview={false}
+            width={40}
+            className="rounded-lg"
+            alt="V-Chat Logo"
+          />
+        </p>
         <div className="flex p-3 justify-between">
           <Tabs
             defaultValue="login"

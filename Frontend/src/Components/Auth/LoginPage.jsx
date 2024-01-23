@@ -41,7 +41,7 @@ const LoginPage = () => {
   };
   return (
     <>
-      {isLoading && <Spin />}
+      {isLoading && <Spin className="flex justify-center items-center" />}
       <div className="p-4">
         <Form
           form={form}
@@ -89,6 +89,7 @@ const LoginPage = () => {
             <Button
               className="bg-blue-400 text-white"
               type="primary"
+              disabled={isLoading}
               block
               htmlType="submit"
             >

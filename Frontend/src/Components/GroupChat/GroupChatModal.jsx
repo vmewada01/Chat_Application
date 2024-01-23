@@ -19,7 +19,6 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
     if (!query) {
       return;
     }
-
     try {
       setIsLoading(true);
       const config = {
@@ -54,13 +53,13 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
   };
   const onFinish = async (values) => {
     if (!selectedUser) return message.warning("Please enter the chat name");
+    setIsLoading(true);
     try {
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
       const payload = {
         name: values.chatName,
         users: JSON.stringify(selectedUser.map((user) => user._id)),
@@ -71,11 +70,14 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
         payload,
         config
       );
-
+      setIsLoading(false);
       setChats([data, ...chats]);
       onClose();
       message.success("Group chat created");
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+      message.error("Failed to create group chat", error);
+    }
   };
   return (
     <Modal
@@ -92,6 +94,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
         form.setFieldsValue({});
       }}
       footer={false}
+      destroyOnClose={true}
     >
       <div>
         <Form
@@ -127,7 +130,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
           ))}
 
           {isLoading ? (
-            <Spin />
+            <Spin className="flex justify-center items-center" />
           ) : (
             searchResult?.slice(0, 4).map((user) => (
               <div className="flex flex-wrap">
@@ -144,6 +147,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
             <Button
               className="bg-blue-400 text-white float-right"
               type="primary"
+              disabled={isLoading}
               htmlType="submit"
             >
               Create Chat
