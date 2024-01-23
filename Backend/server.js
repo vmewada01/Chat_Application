@@ -9,6 +9,7 @@ const {
   notFound,
   errorHandler,
 } = require("./backend/middleware/errorMiddleware");
+const axios = require("axios");
 
 dbConnection();
 const app = express();
@@ -26,6 +27,24 @@ app.use("/api/messages", messageRoute);
 
 app.use(errorHandler);
 app.use(notFound);
+
+function MakeRenderServerActiveFunction() {
+  const apiUrl = "https://jsonplaceholder.typicode.com/todos/1";
+
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      console.log("API Response:", response.data);
+    })
+    .catch((error) => {
+      console.error("Error hitting API:", error.message);
+    });
+}
+
+const apiCallInterval = 10000;
+setInterval(MakeRenderServerActiveFunction, apiCallInterval);
+
+MakeRenderServerActiveFunction();
 
 const PORT = process.env.PORT || "5000";
 
