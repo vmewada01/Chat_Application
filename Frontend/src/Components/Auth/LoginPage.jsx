@@ -16,6 +16,7 @@ const LoginPage = () => {
   const [isLoading, setIsloading] = useState(false);
   const onFinish = (values) => {
     const payload = { ...values };
+    setIsloading(true);
     axios
       .post("https://v-chat-app-kpbs.onrender.com/api/user/login", payload)
       .then((res) => {

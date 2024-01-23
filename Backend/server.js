@@ -34,7 +34,7 @@ const server = app.listen(PORT, console.log(`server started at port  ${PORT}`));
 const io = require("socket.io")(server, {
   pingTimeout: 600000,
   cors: {
-    origin: "v-chat-app-kpbs.onrender.com/",
+    origin: "*",
   },
 });
 

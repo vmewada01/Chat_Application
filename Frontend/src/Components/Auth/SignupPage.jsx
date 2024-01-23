@@ -18,7 +18,7 @@ const SignupPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const onFinish = (values) => {
     const payload = { ...values };
-
+    setImageUrl(true);
     axios
       .post("https://v-chat-app-kpbs.onrender.com/api/user", payload)
 
