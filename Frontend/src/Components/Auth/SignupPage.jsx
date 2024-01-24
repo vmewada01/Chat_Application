@@ -32,6 +32,7 @@ const SignupPage = () => {
         };
 
         localStorage.setItem("userInfo", JSON.stringify(userInformation));
+        localStorage.setItem("v-chat-token", JSON.stringify(res?.data?.token));
         form.resetFields();
         form.setFieldsValue({});
         message.success("Signup Successfully");

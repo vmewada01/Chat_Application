@@ -44,7 +44,8 @@ const HeaderComponent = () => {
       icon: <LogoutOutlined />,
       onClick: async () => {
         await localStorage.removeItem("userInfo");
-        message.success("Logout Successfully");
+        await localStorage.removeItem("v-chat-token");
+        message.success("Logout successfully");
         navigate("/");
       },
     },

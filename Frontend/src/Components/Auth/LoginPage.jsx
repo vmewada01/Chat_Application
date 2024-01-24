@@ -29,6 +29,7 @@ const LoginPage = () => {
         };
 
         localStorage.setItem("userInfo", JSON.stringify(userInformation));
+        localStorage.setItem("v-chat-token", JSON.stringify(res?.data?.token));
         form.resetFields();
         message.success("Login Successfully");
         setIsloading(false);
