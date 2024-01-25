@@ -1,4 +1,4 @@
-import { EyeOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, EyeOutlined } from "@ant-design/icons";
 import { Button, Input, Spin, Tooltip, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import Lottie from "react-lottie";
@@ -149,16 +149,20 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     <div className="w-full h-full">
       {selectedChat ? (
         <>
-          <div className="flex flex-col items-center content-center w-full h-full">
+          <div className="flex flex-col items-center content-center w-full h-full bg-white">
             {!selectedChat?.isGroupChat ? (
               <>
                 <div
                   style={{ backgroundColor: "#B4D4FF" }}
                   className="flex justify-between w-full p-2 rounded-md"
                 >
-                  <span className="font-semibold text-lg">
+                  <div className="font-semibold text-lg flex">
+                    <Button
+                      icon={<ArrowLeftOutlined />}
+                      onClick={() => setSelectedChat("")}
+                    ></Button>
                     {getSender(user, selectedChat?.users)}
-                  </span>
+                  </div>
                   <Tooltip placement="bottom" title="Profile">
                     <Button
                       className="border-black"
@@ -214,9 +218,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   style={{ backgroundColor: "#B4D4FF" }}
                   className="flex justify-between w-full p-2 rounded-md"
                 >
-                  <span className="font-semibold text-lg">
+                  <div className="font-semibold text-lg flex">
+                    <Button
+                      icon={<ArrowLeftOutlined />}
+                      onClick={() => setSelectedChat("")}
+                    ></Button>
                     {selectedChat?.chatName?.toUpperCase()}
-                  </span>
+                  </div>
+
                   <UpdateGroupChatModal
                     fetchAgain={fetchAgain}
                     setFetchAgain={setFetchAgain}

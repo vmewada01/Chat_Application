@@ -38,11 +38,11 @@ const SiderComponent = ({ fetchAgain }) => {
   return (
     <div
       style={{ backgroundColor: "#EEF5FF", height: "90vh" }}
-      className="w-1/3  rounded-lg p-2"
+      className={` ${selectedChat ? "hidden" : "w-full"} lg:w-1/3`}
     >
       <div
         style={{ position: "sticky", top: 0 }}
-        className="pb-3 px-3 text-lg flex flex-wrap justify-between items-center mt-2 w-full"
+        className="flex justify-between items-center p-2"
       >
         <p className="font-bold text-lg italic">My Chats</p>
         <Button
