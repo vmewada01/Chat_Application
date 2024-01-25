@@ -1,12 +1,12 @@
 import { EyeOutlined } from "@ant-design/icons";
 import { Button, Input, Spin, Tooltip, message } from "antd";
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import io from "socket.io-client";
 import ChattingAnimationData from "../../Animation/ChattingAnimation.json";
 import { ChatContext } from "../../Providers/ChatProvider";
 import { getSender, getSenderFull } from "../../config/ChatLogics";
+import axios from "../Common/axios";
 import UpdateGroupChatModal from "../GroupChat/UpdateGroupChatModal";
 import ProfileModal from "../Profile/ProfileModal";
 import ScrollableChat from "./ScrollableChat";

@@ -7,9 +7,9 @@ import {
 } from "@ant-design/icons";
 import { Button, Form, Input, Spin, message } from "antd";
 import { useForm } from "antd/es/form/Form";
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../Common/axios";
 
 const SignupPage = () => {
   const [form] = useForm();

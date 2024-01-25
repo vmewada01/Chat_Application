@@ -1,9 +1,9 @@
 import { InfoOutlined } from "@ant-design/icons";
 import { Button, message } from "antd";
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
 import { getSender } from "../../config/ChatLogics";
+import axios from "../Common/axios";
 import GroupChatModal from "../GroupChat/GroupChatModal";
 
 const SiderComponent = ({ fetchAgain }) => {

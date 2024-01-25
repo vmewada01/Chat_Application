@@ -1,8 +1,8 @@
 import { EyeOutlined } from "@ant-design/icons";
 import { Button, Input, Modal, Spin, Tooltip, message } from "antd";
-import axios from "axios";
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
+import axios from "../Common/axios";
 import UserBadgeItem from "../User/UserBadgeItem";
 import UserListItem from "../User/UserListItem";
 

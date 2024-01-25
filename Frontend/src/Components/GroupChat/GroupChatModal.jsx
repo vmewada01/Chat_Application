@@ -1,8 +1,8 @@
 import { Button, Form, Input, Modal, Spin, message } from "antd";
 import { useForm } from "antd/es/form/Form";
-import axios from "axios";
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
+import axios from "../Common/axios";
 import UserBadgeItem from "../User/UserBadgeItem";
 import UserListItem from "../User/UserListItem";
 
