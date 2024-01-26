@@ -53,7 +53,14 @@ const HeaderComponent = () => {
 
   return (
     <div
-      style={{ backgroundColor: "#B4D4FF" }}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        backgroundColor: "#B4D4FF",
+      }}
       className="flex justify-between p-2"
     >
       <div>
@@ -69,7 +76,7 @@ const HeaderComponent = () => {
       </div>
       <div className="flex justify-center items-center">
         <Image
-          src="./v-logo.jpg"
+          src="./v-chat-app.png"
           preview={false}
           width={40}
           className="rounded-lg"

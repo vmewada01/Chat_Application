@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, EyeOutlined } from "@ant-design/icons";
-import { Button, Input, Spin, Tooltip, message } from "antd";
+import { Button, Input, Spin, Tag, Tooltip, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import io from "socket.io-client";
@@ -154,14 +154,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <>
                 <div
                   style={{ backgroundColor: "#B4D4FF" }}
-                  className="flex justify-between w-full p-2 rounded-md"
+                  className="flex justify-between w-full p-2"
                 >
-                  <div className="font-semibold text-lg flex">
+                  <div className="font-semibold text-lg flex gap-1">
                     <Button
                       icon={<ArrowLeftOutlined />}
                       onClick={() => setSelectedChat("")}
                     ></Button>
-                    {getSender(user, selectedChat?.users)}
+                    <Tag
+                      style={{ backgroundColor: "#F8F8F8" }}
+                      className="flex justify-center items-center"
+                    >
+                      {getSender(user, selectedChat?.users)}
+                    </Tag>
                   </div>
                   <Tooltip placement="bottom" title="Profile">
                     <Button
@@ -223,7 +228,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       icon={<ArrowLeftOutlined />}
                       onClick={() => setSelectedChat("")}
                     ></Button>
-                    {selectedChat?.chatName?.toUpperCase()}
+                    <Tag
+                      style={{ backgroundColor: "#F8F8F8" }}
+                      className="flex justify-center items-center"
+                    >
+                      {selectedChat?.chatName?.toUpperCase()}
+                    </Tag>
                   </div>
 
                   <UpdateGroupChatModal

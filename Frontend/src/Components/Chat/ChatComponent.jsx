@@ -11,9 +11,9 @@ const ChatComponent = () => {
 
   return (
     user && (
-      <div className="w-full">
+      <div className="w-full h-screen">
         <HeaderComponent />
-        <div className="w-full p-2 flex justify-between gap-2 h-lvh">
+        <div className="w-full  flex justify-between  mt-12">
           <SiderComponent fetchAgain={fetchAgain} />
           <MainComponent
             fetchAgain={fetchAgain}

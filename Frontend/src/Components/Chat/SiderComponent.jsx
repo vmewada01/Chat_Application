@@ -1,5 +1,5 @@
 import { InfoOutlined } from "@ant-design/icons";
-import { Button, message } from "antd";
+import { Button, Spin, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
 import { getSender } from "../../config/ChatLogics";
@@ -7,11 +7,13 @@ import axios from "../Common/axios";
 import GroupChatModal from "../GroupChat/GroupChatModal";
 
 const SiderComponent = ({ fetchAgain }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isGroupChatModal, setIsGroupChatModal] = useState(false);
   const [loggedUser, setLoggedUser] = useState([]);
   const { user, setSelectedChat, chats, setChats, selectedChat } =
     useContext(ChatContext);
   const fetchChats = async () => {
+    setIsLoading(true);
     try {
       const config = {
         headers: {
@@ -25,8 +27,10 @@ const SiderComponent = ({ fetchAgain }) => {
       );
 
       setChats(data);
+      setIsLoading(false);
     } catch (error) {
       message.error("Failed to retrieve search results", error);
+      setIsLoading(false);
     }
   };
 
@@ -37,8 +41,8 @@ const SiderComponent = ({ fetchAgain }) => {
 
   return (
     <div
-      style={{ backgroundColor: "#EEF5FF", height: "90vh" }}
-      className={` ${selectedChat ? "hidden" : "w-full"} lg:w-1/3`}
+      style={{ backgroundColor: "#EEF5FF" }}
+      className={` ${selectedChat ? "hidden" : "w-full"} lg:w-1/3 p-3`}
     >
       <div
         style={{ position: "sticky", top: 0 }}
@@ -58,6 +62,7 @@ const SiderComponent = ({ fetchAgain }) => {
         style={{ height: "75vh" }}
         className="flex flex-col overflow-y-scroll h-full rounded-lg"
       >
+        {isLoading && <Spin className="flex justify-center items-center" />}
         {chats && (
           <>
             {chats.map((chat, index) => {
@@ -69,7 +74,7 @@ const SiderComponent = ({ fetchAgain }) => {
                     color: selectedChat === chat ? "white" : "black",
                   }}
                   onClick={() => setSelectedChat(chat)}
-                  className="cursor-pointer rounded-lg mt-1 mb-1"
+                  className="cursor-pointer rounded-lg mt-1 mb-1 "
                   key={index}
                 >
                   <p className="p-3">

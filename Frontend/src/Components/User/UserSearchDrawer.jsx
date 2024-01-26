@@ -89,6 +89,7 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
       open={onOpen}
       footer={false}
       destroyOnClose={true}
+      className="overflow-y-scroll"
     >
       <div className="flex gap-2">
         <Input

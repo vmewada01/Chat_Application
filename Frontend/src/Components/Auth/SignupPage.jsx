@@ -16,37 +16,65 @@ const SignupPage = () => {
   const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
-  const onFinish = (values) => {
-    const payload = { ...values };
-    setImageUrl(true);
-    axios
-      .post("https://v-chat-app-kpbs.onrender.com/api/user", payload)
 
-      .then((res) => {
-        const userInformation = {
-          name: res.data.name,
-          email: res.data.email,
-          picture: res.data.picture,
-          userId: res.data._id,
-          token: res.data.token,
-        };
+  const onFinish = async (values) => {
+    setIsloading(true);
 
-        localStorage.setItem("userInfo", JSON.stringify(userInformation));
-        localStorage.setItem("v-chat-token", JSON.stringify(res?.data?.token));
-        form.resetFields();
-        form.setFieldsValue({});
-        message.success("Signup Successfully");
-        setIsloading(false);
-        navigate("/chat");
+    const formData = new FormData();
+    formData.append("image", imageUrl);
+    formData.append("key", import.meta.env.VITE_IMBB_KEY);
+
+    try {
+      // First API: Upload Image
+      fetch("https://api.imgbb.com/1/upload", {
+        method: "POST",
+        body: formData,
       })
+        .then((response) => response.json())
+        .then((imageData) => {
+          const payload = {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            picture: imageData.data.url,
+          };
 
-      .catch((err) => {
-        setIsloading(false);
-        message.error("Something went wrong");
-        form.resetFields();
-      });
+          // Second API: Register User
+          return axios.post(
+            "https://v-chat-app-kpbs.onrender.com/api/user",
+            payload
+          );
+        })
+        .then((res) => {
+          const userInformation = {
+            name: res.data.name,
+            email: res.data.email,
+            picture: res.data.picture,
+            userId: res.data._id,
+            token: res.data.token,
+          };
+
+          localStorage.setItem("userInfo", JSON.stringify(userInformation));
+          localStorage.setItem("v-chat-token", JSON.stringify(res.data.token));
+          form.resetFields();
+          form.setFieldsValue({});
+          message.success("Signup Successfully");
+          setIsloading(false);
+          navigate("/chat");
+        })
+        .catch((error) => {
+          setIsloading(false);
+          message.error("Something went wrong");
+          form.resetFields();
+        });
+    } catch (error) {
+      setIsloading(false);
+      message.error("Something went wrong");
+      form.resetFields();
+    }
   };
-  const handleFileUploadAtCloudinary = (event) => {
+
+  const handleFileUpload = (event) => {
     const file = event.target?.files[0];
     setImageUrl(file);
   };
@@ -109,6 +137,17 @@ const SignupPage = () => {
               type="password"
               placeholder="Password"
             />
+          </Form.Item>
+          <Form.Item
+            name="file"
+            rules={[
+              {
+                required: true,
+                message: "Please upload your profile picture!",
+              },
+            ]}
+          >
+            <Input type="file" onChange={handleFileUpload} />
           </Form.Item>
 
           <Form.Item>
