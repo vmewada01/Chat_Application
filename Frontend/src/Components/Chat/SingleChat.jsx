@@ -1,4 +1,8 @@
-import { ArrowLeftOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  ArrowUpOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 import { Button, Empty, Input, Spin, Tag, Tooltip, message } from "antd";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Lottie from "react-lottie";
@@ -40,7 +44,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     useContext(ChatContext);
 
   const sendMessageFunction = async (e) => {
-    if (e.key === "Enter" && newMessage) {
+    if ((e.key === "Enter" && newMessage) || newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
         setIsSendingMessage(true);
@@ -217,17 +221,23 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       ) : (
                         <></>
                       )}
-
-                      <Input
-                        ref={inputRef}
-                        autoFocus={true}
-                        className="p-2 text-bold"
-                        placeholder="Enter a message..."
-                        required={true}
-                        onKeyDown={sendMessageFunction}
-                        onChange={typingHandler}
-                        value={newMessage}
-                      />
+                      <div className="flex gap-1 items-center">
+                        <Input
+                          ref={inputRef}
+                          autoFocus={true}
+                          className="p-2 text-bold"
+                          placeholder="Enter a message..."
+                          required={true}
+                          onKeyDown={sendMessageFunction}
+                          onChange={typingHandler}
+                          value={newMessage}
+                        />
+                        <Button
+                          onClick={sendMessageFunction}
+                          className="border-black"
+                          icon={<ArrowUpOutlined />}
+                        ></Button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -279,16 +289,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       ) : (
                         <></>
                       )}
-
-                      <Input
-                        autoFocus={true}
-                        className="p-2 text-bold"
-                        placeholder="Enter a message..."
-                        required={true}
-                        onKeyDown={sendMessageFunction}
-                        onChange={typingHandler}
-                        value={newMessage}
-                      />
+                      <div className="flex gap-1">
+                        <Input
+                          autoFocus={true}
+                          className="p-2 text-bold"
+                          placeholder="Enter a message..."
+                          required={true}
+                          onKeyDown={sendMessageFunction}
+                          onChange={typingHandler}
+                          value={newMessage}
+                        />
+                        <Button
+                          onClick={sendMessageFunction}
+                          className="border-black"
+                          icon={<ArrowUpOutlined />}
+                        ></Button>
+                      </div>
                     </div>
                   )}
                 </div>
