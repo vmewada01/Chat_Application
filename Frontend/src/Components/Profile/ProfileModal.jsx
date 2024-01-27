@@ -17,10 +17,11 @@ const ProfileModal = ({ isModalOpen, onClose, handleOk, user }) => {
       <div>
         <div className="flex justify-center items-center">
           <Image
-            className="w-20 h-20 rounded-full"
+            className="w-10 h-20 rounded-md object-cover"
             src={user?.picture}
             alt="avatar"
             preview={false}
+            width={80}
           />
         </div>
         <div className="flex justify-center items-center">

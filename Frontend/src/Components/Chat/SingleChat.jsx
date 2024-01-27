@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined, EyeOutlined } from "@ant-design/icons";
 import { Button, Empty, Input, Spin, Tag, Tooltip, message } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Lottie from "react-lottie";
 import io from "socket.io-client";
 import ChattingAnimationData from "../../Animation/ChattingAnimation.json";
@@ -24,6 +24,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [newMessage, setNewMessage] = useState("");
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [isSendingMessage, setIsSendingMessage] = useState(false);
+  const inputRef = useRef(null);
 
   const defaultOptions = {
     loop: true,
@@ -41,7 +43,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     if (e.key === "Enter" && newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
-        setIsLoading(true);
+        setIsSendingMessage(true);
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -61,11 +63,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
         socket.emit("new message", data);
         setMessages([...messages, data]);
-
-        setIsLoading(false);
+        setIsSendingMessage(false);
       } catch (error) {
         message.error("Error in sendeing message ");
-        setIsLoading(false);
+        setIsSendingMessage(false);
       }
     }
   };
@@ -107,6 +108,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     fetchMessages();
     selectedChatCompare = selectedChat;
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, [selectedChat]);
 
   useEffect(() => {
@@ -195,7 +200,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   ) : (
                     <div className="flex flex-col w-full h-full justify-between">
                       <div className="h-full flex flex-col">
-                        <ScrollableChat messages={messages} />
+                        <ScrollableChat
+                          isSendingMessage={isSendingMessage}
+                          messages={messages}
+                        />
                       </div>
 
                       {isTyping ? (
@@ -211,6 +219,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       )}
 
                       <Input
+                        ref={inputRef}
                         autoFocus={true}
                         className="p-2 text-bold"
                         placeholder="Enter a message..."

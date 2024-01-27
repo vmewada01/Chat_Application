@@ -1,5 +1,5 @@
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Tooltip } from "antd";
+import { Avatar, Spin, Tooltip } from "antd";
 import React, { useContext } from "react";
 import ScrollableFeed from "react-scrollable-feed";
 import { ChatContext } from "../../Providers/ChatProvider";
@@ -10,7 +10,7 @@ import {
   isSameUser,
 } from "../../config/ChatLogics";
 
-const ScrollableChat = ({ messages }) => {
+const ScrollableChat = ({ messages, isSendingMessage }) => {
   const { user } = useContext(ChatContext);
   return (
     <ScrollableFeed>
@@ -28,7 +28,7 @@ const ScrollableChat = ({ messages }) => {
                     placement="bottom"
                     className="mt-3 mr-1"
                   >
-                    <Avatar icon={<UserOutlined />} />
+                    <Avatar src={m?.sender?.picture} icon={<UserOutlined />} />
                   </Tooltip>
                 )}
                 <span
@@ -49,6 +49,9 @@ const ScrollableChat = ({ messages }) => {
             </div>
           );
         })}
+      {isSendingMessage && (
+        <Spin className="flex m-1 justify-center items-center" />
+      )}
     </ScrollableFeed>
   );
 };

@@ -9,11 +9,11 @@ const UserListItem = ({ singleUser, handleUserAccess }) => {
         className="cursor-pointer mt-2 mb-2 flex gap-3 rounded-md items-center hover:bg-gray-300  text-black w-full "
       >
         <Image
-          className="w-8 h-20 rounded-full"
+          className="rounded-full object-cover"
           src={singleUser?.picture}
           preview={false}
           alt="avatar"
-          width={40}
+          style={{ width: "30px", height: "40px" }}
         />
 
         <div className="flex flex-col">
