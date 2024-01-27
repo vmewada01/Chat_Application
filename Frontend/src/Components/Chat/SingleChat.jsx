@@ -44,7 +44,42 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     useContext(ChatContext);
 
   const sendMessageFunction = async (e) => {
-    if ((e.key === "Enter" && newMessage) || newMessage) {
+    if (e.key === "Enter" && newMessage) {
+      socket.emit("stop typing", selectedChat._id);
+      try {
+        setIsSendingMessage(true);
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        const payload = {
+          chatId: selectedChat?._id,
+          content: newMessage,
+        };
+        setNewMessage("");
+        const { data } = await axios.post(
+          "https://v-chat-app-kpbs.onrender.com/api/messages",
+          payload,
+          config
+        );
+
+        socket.emit("new message", data);
+        setMessages([...messages, data]);
+        setIsSendingMessage(false);
+      } catch (error) {
+        message.error("Error in sendeing message ");
+        setIsSendingMessage(false);
+      }
+    }
+  };
+
+  const sendMessageByButton = async () => {
+    if (newMessage) {
+      const trimmedMessage = newMessage.trim();
+      if (!trimmedMessage) return message.info("please enter a valid message");
+
       socket.emit("stop typing", selectedChat._id);
       try {
         setIsSendingMessage(true);
@@ -233,7 +268,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                           value={newMessage}
                         />
                         <Button
-                          onClick={sendMessageFunction}
+                          onClick={sendMessageByButton}
                           className="border-black"
                           icon={<ArrowUpOutlined />}
                         ></Button>
@@ -300,7 +335,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                           value={newMessage}
                         />
                         <Button
-                          onClick={sendMessageFunction}
+                          onClick={sendMessageByButton}
                           className="border-black"
                           icon={<ArrowUpOutlined />}
                         ></Button>
