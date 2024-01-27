@@ -1,8 +1,8 @@
 import { InfoOutlined } from "@ant-design/icons";
-import { Button, Spin, message } from "antd";
+import { Button, Image, Spin, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
-import { getSender } from "../../config/ChatLogics";
+import { getSender, getSenderImage } from "../../config/ChatLogics";
 import axios from "../Common/axios";
 import GroupChatModal from "../GroupChat/GroupChatModal";
 
@@ -68,6 +68,10 @@ const SiderComponent = ({ fetchAgain }) => {
         {chats && (
           <>
             {chats.map((chat, index) => {
+              const imageUrl = !chat?.isGroupChat
+                ? getSenderImage(loggedUser, chat.users)
+                : "https://static.vecteezy.com/system/resources/previews/000/550/535/non_2x/user-icon-vector.jpg";
+
               return (
                 <div
                   style={{
@@ -76,10 +80,20 @@ const SiderComponent = ({ fetchAgain }) => {
                     color: selectedChat === chat ? "white" : "black",
                   }}
                   onClick={() => setSelectedChat(chat)}
-                  className="cursor-pointer rounded-lg mt-1 mb-1 "
+                  className="cursor-pointer rounded-lg mt-1 mb-1  flex w-full  items-start"
                   key={index}
                 >
-                  <p className="p-3">
+                  {imageUrl && (
+                    <Image
+                      className="rounded-full object-cover ml-4 mt-1"
+                      style={{ width: "30px", height: "40px" }}
+                      src={imageUrl}
+                      width={20}
+                      alt="image"
+                    />
+                  )}
+
+                  <p className="p-3 ml-4">
                     {!chat?.isGroupChat
                       ? getSender(loggedUser, chat.users)
                       : chat.chatName}

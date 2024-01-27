@@ -151,7 +151,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col  mt-3">
       {selectedChat ? (
         <>
           <div
