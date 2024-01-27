@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, EyeOutlined } from "@ant-design/icons";
-import { Button, Input, Spin, Tag, Tooltip, message } from "antd";
+import { Button, Empty, Input, Spin, Tag, Tooltip, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import Lottie from "react-lottie";
 import io from "socket.io-client";
@@ -146,18 +146,24 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full flex flex-col">
       {selectedChat ? (
         <>
-          <div className="flex flex-col items-center content-center w-full h-full bg-white">
+          <div
+            style={{
+              backgroundImage: `url("https://images.unsplash.com/photo-1533628635777-112b2239b1c7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hhdCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D")`,
+            }}
+            className="flex flex-col items-center content-center w-full h-full"
+          >
             {!selectedChat?.isGroupChat ? (
               <>
                 <div
                   style={{ backgroundColor: "#B4D4FF" }}
-                  className="flex justify-between w-full p-2"
+                  className="flex justify-between w-full p-2 rounded-md"
                 >
                   <div className="font-semibold text-lg flex gap-1">
                     <Button
+                      className="border-black"
                       icon={<ArrowLeftOutlined />}
                       onClick={() => setSelectedChat("")}
                     ></Button>
@@ -223,8 +229,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   style={{ backgroundColor: "#B4D4FF" }}
                   className="flex justify-between w-full p-2 rounded-md"
                 >
-                  <div className="font-semibold text-lg flex">
+                  <div className="font-semibold text-lg flex gap-1">
                     <Button
+                      className="border-black"
                       icon={<ArrowLeftOutlined />}
                       onClick={() => setSelectedChat("")}
                     ></Button>
@@ -283,7 +290,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       ) : (
         <>
           <div className="flex justify-center items-center content-center h-full">
-            <p className="text-2xl italic">Click on a user to start chatting</p>
+            <Empty
+              description={
+                <p className="font-bold italic text-lg">
+                  Click on a user to start chatting
+                </p>
+              }
+            />
           </div>
         </>
       )}

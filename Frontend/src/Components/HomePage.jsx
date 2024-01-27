@@ -1,12 +1,17 @@
 import { UserAddOutlined, UserSwitchOutlined } from "@ant-design/icons";
 import { Image, Space, Tabs } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginPage from "./Auth/LoginPage";
 import SignupPage from "./Auth/SignupPage";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("login");
+
+  const handleTabChange = (key) => {
+    setActiveTab(key);
+  };
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -21,15 +26,16 @@ const HomePage = () => {
           <Image
             src="./v-chat-app.png"
             preview={false}
-            width={40}
+            width={90}
             className="rounded-lg"
             alt="V-Chat Logo"
           />
         </p>
         <div className="flex p-3 justify-between">
           <Tabs
-            defaultValue="login"
+            defaultValue={activeTab}
             centered={true}
+            onChange={handleTabChange}
             animated={{ inkBar: true, tabPane: true }}
             tabPosition="top"
             className="w-full"
@@ -43,7 +49,7 @@ const HomePage = () => {
               }
               key="login"
             >
-              <LoginPage />
+              <LoginPage activeTab={activeTab} />
             </Tabs.TabPane>
 
             <Tabs.TabPane
@@ -55,7 +61,7 @@ const HomePage = () => {
               }
               key="signup"
             >
-              <SignupPage />
+              <SignupPage activeTab={activeTab} />
             </Tabs.TabPane>
           </Tabs>
         </div>

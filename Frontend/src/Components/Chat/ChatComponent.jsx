@@ -13,7 +13,7 @@ const ChatComponent = () => {
     user && (
       <div className="w-full h-screen">
         <HeaderComponent />
-        <div className="w-full  flex justify-between  mt-12">
+        <div className="w-full  flex justify-between h-full mt-12">
           <SiderComponent fetchAgain={fetchAgain} />
           <MainComponent
             fetchAgain={fetchAgain}

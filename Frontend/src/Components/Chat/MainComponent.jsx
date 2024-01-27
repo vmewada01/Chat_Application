@@ -7,7 +7,7 @@ const MainComponent = ({ fetchAgain, setFetchAgain }) => {
   return (
     <div
       style={{ width: "100%" }}
-      className={`md:flex md:items-center  md:border-black md:p-3 md:flex-col md:bg-white ${
+      className={` md:flex md:items-center  md:border-black md:p-3 md:flex-col md:bg-white ${
         selectedChat ? "flex" : "hidden"
       }`}
     >

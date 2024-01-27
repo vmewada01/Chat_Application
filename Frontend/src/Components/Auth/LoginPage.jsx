@@ -7,11 +7,11 @@ import {
 import { Button, Form, Input, Spin, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../Common/axios";
 
-const LoginPage = () => {
+const LoginPage = ({ activeTab }) => {
   const [form] = useForm();
   const navigate = useNavigate();
   const [isLoading, setIsloading] = useState(false);
@@ -38,9 +38,18 @@ const LoginPage = () => {
       })
       .catch((err) => {
         setIsloading(false);
-        message.error("Something went wrong");
+        err.response
+          ? message.error(err?.response?.data?.message)
+          : message.error("Something went wrong");
       });
   };
+
+  useEffect(() => {
+    if (activeTab === "signup") {
+      form.resetFields();
+    }
+  }, [activeTab]);
+
   return (
     <>
       {isLoading && <Spin className="flex justify-center items-center" />}

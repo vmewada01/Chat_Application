@@ -42,7 +42,9 @@ const SiderComponent = ({ fetchAgain }) => {
   return (
     <div
       style={{ backgroundColor: "#EEF5FF" }}
-      className={` ${selectedChat ? "hidden" : "w-full"} lg:w-1/3 p-3`}
+      className={`  md:block ${
+        selectedChat ? "hidden" : "w-full"
+      } lg:w-1/3 p-3`}
     >
       <div
         style={{ position: "sticky", top: 0 }}

@@ -116,7 +116,7 @@ const UserSearchDrawer = ({ onClose, onOpen }) => {
             <UserListItem
               key={index}
               singleUser={user}
-              handleUserAccess={() => accessChat(user._id)}
+              handleUserAccess={() => accessChat(user?._id)}
             />
           );
         })}
