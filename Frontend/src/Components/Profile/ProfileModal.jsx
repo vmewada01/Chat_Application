@@ -1,3 +1,4 @@
+import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Image, Modal } from "antd";
 import React from "react";
 
@@ -24,11 +25,14 @@ const ProfileModal = ({ isModalOpen, onClose, handleOk, user }) => {
             width={80}
           />
         </div>
-        <div className="flex justify-center items-center">
-          <p className="text-center font-semibold">{user?.name}</p>
-        </div>
-        <div className="flex justify-center items-center">
-          <p className="text-center font-semibold">Email: {user?.email}</p>
+
+        <div className="flex flex-col  justify-center items-center">
+          <p className="text-center font-semibold">
+            <UserOutlined className="text-blue-300" /> : {user?.name}
+          </p>
+          <p className="text-center font-semibold">
+            <MailOutlined className="text-blue-300" /> : {user?.email}
+          </p>
         </div>
       </div>
     </Modal>
