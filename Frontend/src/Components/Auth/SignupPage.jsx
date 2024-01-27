@@ -19,10 +19,10 @@ const SignupPage = () => {
 
   const onFinish = async (values) => {
     setIsloading(true);
-
+    const key = "116e3de6b32169f2df91d8d0183bd5c9";
     const formData = new FormData();
     formData.append("image", imageUrl);
-    formData.append("key", import.meta.env.VITE_IMBB_KEY);
+    formData.append("key", key);
 
     try {
       // First API: Upload Image
