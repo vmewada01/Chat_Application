@@ -10,18 +10,21 @@ const ChatComponent = () => {
   const [fetchAgain, setFetchAgain] = useState(false);
 
   return (
-    user && (
-      <div className="w-full h-screen">
-        <HeaderComponent />
-        <div className="w-full  flex justify-between h-full mt-12">
-          <SiderComponent fetchAgain={fetchAgain} />
-          <MainComponent
-            fetchAgain={fetchAgain}
-            setFetchAgain={setFetchAgain}
-          />
+    <>
+      <HeaderComponent />
+
+      {user && (
+        <div className="w-full h-full">
+          <div className="w-full h-screen flex justify-between mt-12 md:mt-0 md:pt-12">
+            <SiderComponent fetchAgain={fetchAgain} />
+            <MainComponent
+              fetchAgain={fetchAgain}
+              setFetchAgain={setFetchAgain}
+            />
+          </div>
         </div>
-      </div>
-    )
+      )}
+    </>
   );
 };
 

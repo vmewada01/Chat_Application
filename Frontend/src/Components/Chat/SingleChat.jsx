@@ -204,8 +204,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             {!selectedChat?.isGroupChat ? (
               <>
                 <div
-                  style={{ backgroundColor: "#B4D4FF" }}
-                  className="flex justify-between w-full p-2 rounded-md"
+                  style={{
+                    backgroundColor: "#B4D4FF",
+                    position: "sticky",
+                    top: 0,
+                  }}
+                  className="flex justify-between w-full p-2 rounded-md "
                 >
                   <div className="font-semibold text-lg flex gap-1">
                     <Button
@@ -252,7 +256,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                           <Lottie
                             options={defaultOptions}
                             width={70}
-                            style={{ marginBottom: 15, marginLeft: 0 }}
+                            style={{ marginLeft: 0 }}
                           />
                         </div>
                       ) : (
@@ -311,25 +315,21 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     <Spin className="flex justify-center items-center m-auto" />
                   ) : (
                     <div className="flex flex-col w-full h-full justify-between">
-                      <div className="h-full flex flex-col">
+                      <div className="h-[90%] pb-2 flex flex-col">
                         <ScrollableChat messages={messages} />
                       </div>
 
                       {isTyping ? (
                         <div>
-                          <Lottie
-                            options={defaultOptions}
-                            width={70}
-                            style={{ marginBottom: 15, marginLeft: 0 }}
-                          />
+                          <Lottie options={defaultOptions} width={70} />
                         </div>
                       ) : (
                         <></>
                       )}
-                      <div className="flex gap-1">
+                      <div className="flex h-fit gap-1">
                         <Input
                           autoFocus={true}
-                          className="p-2 text-bold"
+                          className="p-2 h-fit text-bold"
                           placeholder="Enter a message..."
                           required={true}
                           onKeyDown={sendMessageFunction}

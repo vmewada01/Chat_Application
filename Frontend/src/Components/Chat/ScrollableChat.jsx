@@ -13,7 +13,7 @@ import {
 const ScrollableChat = ({ messages, isSendingMessage }) => {
   const { user } = useContext(ChatContext);
   return (
-    <ScrollableFeed>
+    <ScrollableFeed className="min-h-full">
       {messages &&
         messages.map((m, i) => {
           const sameSender = isSameSender(messages, m, i, user.userId);

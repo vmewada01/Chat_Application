@@ -41,8 +41,7 @@ const SiderComponent = ({ fetchAgain }) => {
 
   return (
     <div
-      style={{ backgroundColor: "#EEF5FF" }}
-      className={`  md:block ${
+      className={`min-h-full h-full bg-[#EEF5FF] md:block ${
         selectedChat ? "hidden" : "w-full"
       } lg:w-1/3 p-3`}
     >
@@ -60,10 +59,7 @@ const SiderComponent = ({ fetchAgain }) => {
         </Button>
       </div>
 
-      <div
-        style={{ height: "75vh" }}
-        className="flex flex-col overflow-y-scroll h-full rounded-lg"
-      >
+      <div className="flex flex-col overflow-y-scroll h-[90%] rounded-lg">
         {isLoading && <Spin className="flex justify-center items-center" />}
         {chats && (
           <>
