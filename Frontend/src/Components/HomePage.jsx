@@ -21,7 +21,10 @@ const HomePage = () => {
   }, [window.location]);
   return (
     <div className="sticky-background">
-      <div className="shadow-lg p-4 lg:w-1/2 md:w-3/4 md:p-3 sm:w-3/4 sm:p-1  m-auto mt-8 rounded-lg bg-white">
+      <div
+        className="shadow-lg p-4 lg:w-1/2 md:w-3/4
+       md:p-3 sm:w-3/4 sm:p-1  m-auto mt-8 rounded-lg bg-white"
+      >
         <p className="flex justify-center items-center text-sky-600 font-bold text-2xl ">
           <Image
             src="./v-chat-app.png"

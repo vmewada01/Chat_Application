@@ -195,16 +195,6 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             placeholder="Add User eg: Jatin, Safal, etc..."
             onChange={(e) => handleChange(e.target.value)}
           />
-
-          {/* {selectedUser &&
-            selectedUser?.map((existingUser) => (
-              <UserBadgeItem
-                key={existingUser.id}
-                user={existingUser}
-                admin={selectedChat.groupAdmin}
-                handleFunction={() => handleRemoveUser(existingUser)}
-              />
-            ))} */}
         </div>
 
         {isLoading ? (

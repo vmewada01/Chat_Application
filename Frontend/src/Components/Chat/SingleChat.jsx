@@ -250,8 +250,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       </div>
 
                       {isTyping ? (
-                        <div>
-                          <Lottie options={defaultOptions} width={70} />
+                        <div className="relative">
+                          <Lottie
+                            className="left-0"
+                            options={defaultOptions}
+                            width={70}
+                          />
                         </div>
                       ) : (
                         <></>
@@ -314,8 +318,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       </div>
 
                       {isTyping ? (
-                        <div>
-                          <Lottie options={defaultOptions} width={70} />
+                        <div className="relative">
+                          <Lottie
+                            className="left-0"
+                            options={defaultOptions}
+                            width={70}
+                          />
                         </div>
                       ) : (
                         <></>
