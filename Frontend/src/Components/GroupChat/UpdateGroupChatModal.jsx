@@ -9,7 +9,6 @@ import UserListItem from "../User/UserListItem";
 const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, selectedChat, setSelectedChat } = useContext(ChatContext);
-  const [selectedUser, setSelectedUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [groupChatName, setGroupChatName] = useState();
   const [search, setSearch] = useState("");
@@ -17,7 +16,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const [isRenameLoading, setIsRenameLoading] = useState(false);
 
   const handleRemoveUser = async (existingUser) => {
-    if (selectedChat?.groupAdmin !== user.userId) {
+    if (selectedChat?.groupAdmin?._id !== user.userId) {
       message.info("Only Admins can remove members");
       return;
     }
@@ -108,12 +107,11 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   };
 
   const handleAddGroup = async (addUser) => {
-    console.log(selectedChat.groupAdmin, user.userId);
     if (selectedChat.users.find((u) => u._id === addUser._id)) {
       message.info("User already in Group");
       return;
     }
-    if (selectedChat.groupAdmin !== user.userId) {
+    if (selectedChat?.groupAdmin?._id !== user.userId) {
       message.info("Only Admins can add new members");
       return;
     }
@@ -136,7 +134,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         config
       );
 
-      setSelectedUser(data);
+      setSelectedChat(data);
       setFetchAgain(!fetchAgain);
       fetchMessages();
       setIsLoading(false);
@@ -229,7 +227,6 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             onClick={() => {
               handleRemoveUser(user).then(() => {
                 setSearchResult([]);
-                setSelectedUser([]);
                 setGroupChatName();
                 setIsModalOpen(false);
               });

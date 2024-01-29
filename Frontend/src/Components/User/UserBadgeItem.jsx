@@ -1,7 +1,6 @@
 import { Tag } from "antd";
 import React from "react";
 const UserBadgeItem = ({ handleFunction, user, admin }) => {
-  console.log(admin, "admin");
   return (
     <>
       <Tag
