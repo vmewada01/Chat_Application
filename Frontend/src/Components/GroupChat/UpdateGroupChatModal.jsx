@@ -16,9 +16,9 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const [searchResult, setSearchResult] = useState([]);
   const [isRenameLoading, setIsRenameLoading] = useState(false);
 
-  const handleRemoveUser = async (user1) => {
-    if (selectedChat.groupAdmin._id !== user._id) {
-      message.info("Only Admins can add new members");
+  const handleRemoveUser = async (existingUser) => {
+    if (selectedChat?.groupAdmin !== user.userId) {
+      message.info("Only Admins can remove members");
       return;
     }
     try {
@@ -31,14 +31,16 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
 
       const payload = {
         chatId: selectedChat?._id,
-        userId: user1._id,
+        userId: existingUser._id,
       };
       const { data } = await axios.put(
         "https://v-chat-app-kpbs.onrender.com/api/chat/groupRemove",
         payload,
         config
       );
-      user1._id = user._id ? setSelectedChat() : setSelectedChat(data);
+      existingUser._id === user.userId
+        ? setSelectedChat()
+        : setSelectedChat(data);
 
       setFetchAgain(!fetchAgain);
       setIsLoading(false);
@@ -49,7 +51,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   };
 
   const handleRenameFunction = async () => {
-    if (!groupChatName) return message.info("enter new group name");
+    if (!groupChatName) return message.info("Please enter a new group name");
     try {
       setIsRenameLoading(true);
       const config = {
@@ -105,12 +107,13 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
     }
   };
 
-  const handleGroup = async (user1) => {
-    if (selectedChat.users.find((u) => u._id === user1._id)) {
-      message.info("User already added");
+  const handleAddGroup = async (addUser) => {
+    console.log(selectedChat.groupAdmin, user.userId);
+    if (selectedChat.users.find((u) => u._id === addUser._id)) {
+      message.info("User already in Group");
       return;
     }
-    if (selectedChat.groupAdmin._id !== user._id) {
+    if (selectedChat.groupAdmin !== user.userId) {
       message.info("Only Admins can add new members");
       return;
     }
@@ -125,7 +128,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
 
       const payload = {
         chatId: selectedChat?._id,
-        userId: user1._id,
+        userId: addUser._id,
       };
       const { data } = await axios.put(
         "https://v-chat-app-kpbs.onrender.com/api/chat/groupAdd",
@@ -142,6 +145,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       setIsLoading(false);
     }
   };
+
   return (
     <>
       <Tooltip placement="bottom" title="Group Info">
@@ -171,6 +175,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
               <UserBadgeItem
                 key={u._id}
                 user={u}
+                admin={selectedChat?.groupAdmin}
                 handleFunction={() => handleRemoveUser(u)}
               />
             </>
@@ -193,24 +198,26 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             onChange={(e) => handleChange(e.target.value)}
           />
 
-          {selectedUser?.map((user) => (
-            <UserBadgeItem
-              key={user.id}
-              user={user}
-              handleFunction={() => handleRemoveUser(user)}
-            />
-          ))}
+          {/* {selectedUser &&
+            selectedUser?.map((existingUser) => (
+              <UserBadgeItem
+                key={existingUser.id}
+                user={existingUser}
+                admin={selectedChat.groupAdmin}
+                handleFunction={() => handleRemoveUser(existingUser)}
+              />
+            ))} */}
         </div>
 
         {isLoading ? (
           <Spin className="flex justify-center items-center mt-2" />
         ) : (
-          searchResult?.slice(0, 4).map((user) => (
+          searchResult?.slice(0, 4).map((newUser) => (
             <div className="flex flex-wrap">
               <UserListItem
-                key={user._id}
-                singleUser={user}
-                handleUserAccess={() => handleGroup(user)}
+                key={newUser._id}
+                singleUser={newUser}
+                handleUserAccess={() => handleAddGroup(newUser)}
               />
             </div>
           ))

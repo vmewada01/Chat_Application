@@ -1,14 +1,18 @@
 import { Tag } from "antd";
 import React from "react";
-const UserBadgeItem = ({ handleFunction, user }) => {
+const UserBadgeItem = ({ handleFunction, user, admin }) => {
+  console.log(admin, "admin");
   return (
     <>
       <Tag
         className="mb-3"
         closeIcon
-        onClose={handleFunction}
+        onClose={(e) => {
+          e.preventDefault();
+          handleFunction();
+        }}
         bordered={true}
-        color="processing"
+        color={admin === user._id ? "green" : "processing"}
       >
         {user.name}
       </Tag>
