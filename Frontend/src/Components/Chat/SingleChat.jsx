@@ -251,7 +251,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
                       {isTyping ? (
                         <div className="flex justify-start">
-                          <Lottie options={defaultOptions} width={70} />
+                          <Lottie
+                            options={defaultOptions}
+                            width={70}
+                            style={{ marginLeft: 0 }}
+                          />
                         </div>
                       ) : (
                         <></>
@@ -315,7 +319,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
                       {isTyping ? (
                         <div className="flex justify-start">
-                          <Lottie options={defaultOptions} width={70} />
+                          <Lottie
+                            options={defaultOptions}
+                            width={70}
+                            style={{ marginLeft: 0 }}
+                          />
                         </div>
                       ) : (
                         <></>
