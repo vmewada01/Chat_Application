@@ -3,9 +3,10 @@ import {
   EyeTwoTone,
   LockOutlined,
   MailOutlined,
+  PictureOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Form, Input, Spin, message } from "antd";
+import { Button, Form, Input, Spin, Tooltip, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -102,8 +103,13 @@ const SignupPage = () => {
             ]}
           >
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
+              disabled={isLoading}
+              prefix={
+                <Tooltip title="User Name">
+                  <UserOutlined className="site-form-item-icon" />
+                </Tooltip>
+              }
+              placeholder="User Name"
             />
           </Form.Item>
           <Form.Item
@@ -116,7 +122,12 @@ const SignupPage = () => {
             ]}
           >
             <Input
-              prefix={<MailOutlined className="site-form-item-icon" />}
+              disabled={isLoading}
+              prefix={
+                <Tooltip title="User Email">
+                  <MailOutlined className="site-form-item-icon" />
+                </Tooltip>
+              }
               placeholder="Email Address"
             />
           </Form.Item>
@@ -130,7 +141,12 @@ const SignupPage = () => {
             ]}
           >
             <Input.Password
-              prefix={<LockOutlined className="site-form-item-icon" />}
+              disabled={isLoading}
+              prefix={
+                <Tooltip title="User Password">
+                  <LockOutlined className="site-form-item-icon" />
+                </Tooltip>
+              }
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
@@ -147,7 +163,17 @@ const SignupPage = () => {
               },
             ]}
           >
-            <Input type="file" onChange={handleFileUpload} />
+            <Input
+              prefix={
+                <Tooltip title="Profile Picture">
+                  <PictureOutlined className="site-form-item-icon" />
+                </Tooltip>
+              }
+              disabled={isLoading}
+              placeholder="Upload Profile Picture"
+              type="file"
+              onChange={handleFileUpload}
+            />
           </Form.Item>
 
           <Form.Item>

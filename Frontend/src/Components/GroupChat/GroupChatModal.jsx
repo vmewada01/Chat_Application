@@ -79,6 +79,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
       message.error("Failed to create group chat", error);
     }
   };
+
   return (
     <Modal
       title={
@@ -124,6 +125,7 @@ const GroupChatModal = ({ isModalOpen, onClose, handleOk }) => {
           {selectedUser.map((user) => (
             <UserBadgeItem
               key={user.id}
+              admin={null}
               user={user}
               handleFunction={() => handleDelete(user)}
             />

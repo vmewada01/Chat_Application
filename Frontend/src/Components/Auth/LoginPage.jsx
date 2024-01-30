@@ -2,9 +2,9 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
   LockOutlined,
-  UserOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
-import { Button, Form, Input, Spin, message } from "antd";
+import { Button, Form, Input, Spin, Tooltip, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 
 import React, { useEffect, useState } from "react";
@@ -73,7 +73,12 @@ const LoginPage = ({ activeTab }) => {
             ]}
           >
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
+              disabled={isLoading}
+              prefix={
+                <Tooltip title="User Email">
+                  <MailOutlined className="site-form-item-icon" />
+                </Tooltip>
+              }
               placeholder="Email Address"
             />
           </Form.Item>
@@ -87,7 +92,12 @@ const LoginPage = ({ activeTab }) => {
             ]}
           >
             <Input.Password
-              prefix={<LockOutlined className="site-form-item-icon" />}
+              disabled={isLoading}
+              prefix={
+                <Tooltip title="User Password">
+                  <LockOutlined className="site-form-item-icon" />
+                </Tooltip>
+              }
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }

@@ -64,7 +64,7 @@ const HeaderComponent = () => {
       className="flex justify-between p-2"
     >
       <div>
-        <Tooltip placement="bottom" title={"Search Chat User here"}>
+        <Tooltip placement="bottom" title={"Search Existing User here"}>
           <Button
             icon={<SearchOutlined />}
             onClick={() => setIsUserSearchDrawer(true)}

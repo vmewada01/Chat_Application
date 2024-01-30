@@ -1,4 +1,4 @@
-import { InfoOutlined } from "@ant-design/icons";
+import { UsergroupAddOutlined } from "@ant-design/icons";
 import { Button, Image, Spin, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../Providers/ChatProvider";
@@ -51,7 +51,7 @@ const SiderComponent = ({ fetchAgain }) => {
       >
         <p className="font-bold text-lg italic">My Chats</p>
         <Button
-          icon={<InfoOutlined />}
+          icon={<UsergroupAddOutlined />}
           onClick={() => setIsGroupChatModal(true)}
           className="border-black"
         >

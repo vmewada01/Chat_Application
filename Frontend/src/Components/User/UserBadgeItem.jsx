@@ -5,15 +5,21 @@ const UserBadgeItem = ({ handleFunction, user, admin }) => {
     <>
       <Tag
         className="mb-3"
-        closeIcon={admin._id === user._id ? false : true}
+        closeIcon={admin && admin._id === user._id ? false : true}
         onClose={(e) => {
           e.preventDefault();
           handleFunction();
         }}
         bordered={true}
-        color={admin._id === user._id ? "green" : "processing"}
+        color={
+          admin && admin._id === user._id
+            ? "green"
+            : admin
+            ? "processing"
+            : "blue"
+        }
       >
-        {user.name} {admin._id === user._id && <span>|| Admin</span>}
+        {user.name} {admin && admin._id === user._id && <span>|| Admin</span>}
       </Tag>
     </>
   );
