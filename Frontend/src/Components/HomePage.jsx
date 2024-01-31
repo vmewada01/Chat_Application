@@ -8,6 +8,7 @@ import SignupPage from "./Auth/SignupPage";
 const HomePage = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
+  const [isLoading, setIsloading] = useState(false);
 
   const handleTabChange = (key) => {
     setActiveTab(key);
@@ -19,6 +20,7 @@ const HomePage = () => {
       navigate("/chat");
     }
   }, [window.location]);
+
   return (
     <div className="sticky-background">
       <div
@@ -44,6 +46,7 @@ const HomePage = () => {
             className="w-full"
           >
             <Tabs.TabPane
+              disabled={isLoading}
               tab={
                 <Space>
                   <UserSwitchOutlined />
@@ -52,10 +55,15 @@ const HomePage = () => {
               }
               key="login"
             >
-              <LoginPage activeTab={activeTab} />
+              <LoginPage
+                isLoading={isLoading}
+                setIsloading={setIsloading}
+                activeTab={activeTab}
+              />
             </Tabs.TabPane>
 
             <Tabs.TabPane
+              disabled={isLoading}
               tab={
                 <Space>
                   <UserAddOutlined />
@@ -64,7 +72,11 @@ const HomePage = () => {
               }
               key="signup"
             >
-              <SignupPage activeTab={activeTab} />
+              <SignupPage
+                isLoading={isLoading}
+                setIsloading={setIsloading}
+                activeTab={activeTab}
+              />
             </Tabs.TabPane>
           </Tabs>
         </div>

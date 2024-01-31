@@ -12,9 +12,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../Common/axios";
 
-const SignupPage = () => {
+const SignupPage = ({ isLoading, setIsloading }) => {
   const [form] = useForm();
-  const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
 
@@ -98,7 +97,7 @@ const SignupPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please enter your Username!",
+                message: "Please enter name",
               },
             ]}
           >
@@ -109,7 +108,7 @@ const SignupPage = () => {
                   <UserOutlined className="site-form-item-icon" />
                 </Tooltip>
               }
-              placeholder="User Name"
+              placeholder="Enter name"
             />
           </Form.Item>
           <Form.Item
@@ -117,7 +116,7 @@ const SignupPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please enter your EmailAddress!",
+                message: "Please enter email address",
               },
             ]}
           >
@@ -128,7 +127,7 @@ const SignupPage = () => {
                   <MailOutlined className="site-form-item-icon" />
                 </Tooltip>
               }
-              placeholder="Email Address"
+              placeholder="Email address"
             />
           </Form.Item>
           <Form.Item
@@ -136,7 +135,7 @@ const SignupPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please enter your Password!",
+                message: "Please enter password",
               },
             ]}
           >
@@ -151,7 +150,7 @@ const SignupPage = () => {
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
               type="password"
-              placeholder="Password"
+              placeholder="Enter password"
             />
           </Form.Item>
           <Form.Item
@@ -159,7 +158,7 @@ const SignupPage = () => {
             rules={[
               {
                 required: true,
-                message: "Please upload your profile picture!",
+                message: "Please upload profile picture",
               },
             ]}
           >
@@ -169,8 +168,8 @@ const SignupPage = () => {
                   <PictureOutlined className="site-form-item-icon" />
                 </Tooltip>
               }
+              accept="image/png, image/jpeg, image/jpg"
               disabled={isLoading}
-              placeholder="Upload Profile Picture"
               type="file"
               onChange={handleFileUpload}
             />

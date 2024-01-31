@@ -7,14 +7,13 @@ import {
 import { Button, Form, Input, Spin, Tooltip, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../Common/axios";
 
-const LoginPage = ({ activeTab }) => {
+const LoginPage = ({ activeTab, isLoading, setIsloading }) => {
   const [form] = useForm();
   const navigate = useNavigate();
-  const [isLoading, setIsloading] = useState(false);
   const onFinish = (values) => {
     const payload = { ...values };
     setIsloading(true);
@@ -68,7 +67,7 @@ const LoginPage = ({ activeTab }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter your Username!",
+                message: "Please enter email address",
               },
             ]}
           >
@@ -79,7 +78,7 @@ const LoginPage = ({ activeTab }) => {
                   <MailOutlined className="site-form-item-icon" />
                 </Tooltip>
               }
-              placeholder="Email Address"
+              placeholder="Email address"
             />
           </Form.Item>
           <Form.Item
@@ -87,7 +86,7 @@ const LoginPage = ({ activeTab }) => {
             rules={[
               {
                 required: true,
-                message: "Please enter your Password!",
+                message: "Please enter password",
               },
             ]}
           >
@@ -102,7 +101,7 @@ const LoginPage = ({ activeTab }) => {
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
               type="password"
-              placeholder="Password"
+              placeholder="Enter password"
             />
           </Form.Item>
 
