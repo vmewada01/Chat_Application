@@ -5,7 +5,6 @@ class HttpService {
   static Instance() {
     let ax = new axios.create({
       baseURL: "https://v-chat-app-kpbs.onrender.com",
-      timeout: 30000,
       headers: RequestHeader(),
     });
 
